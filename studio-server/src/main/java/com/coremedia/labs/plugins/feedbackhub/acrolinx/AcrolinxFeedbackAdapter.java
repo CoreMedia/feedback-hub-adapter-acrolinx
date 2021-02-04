@@ -8,9 +8,12 @@ import com.coremedia.labs.plugins.feedbackhub.acrolinx.items.AcrolinxSidebarFeed
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,7 +37,23 @@ public class AcrolinxFeedbackAdapter implements TextFeedbackHubAdapter {
     String host= settings.getServerAddress();
     String clientSignature= settings.getClientSignature();
     items.add(FeedbackItemFactory.createFeedbackLink("https://" + host + "/dashboard.html"));
-    items.add(new AcrolinxSidebarFeedbackItem(host, clientSignature));
+    items.add(new AcrolinxSidebarFeedbackItem(host, clientSignature, asList(settings.getPropertyNames())));
     return CompletableFuture.completedFuture(items);
+  }
+
+  /**
+   * Converts the CSV value into a list
+   * @param propertyNames the CSV string which contains the property names
+   */
+  private List<String> asList(String propertyNames) {
+    if(StringUtils.isEmpty(propertyNames)) {
+      return Collections.emptyList();
+    }
+
+    if(propertyNames.contains(",")) {
+      return Arrays.asList(propertyNames.split(","));
+    }
+
+    return Collections.singletonList(propertyNames);
   }
 }

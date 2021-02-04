@@ -15,4 +15,9 @@ public interface AcrolinxSettings {
    */
   String getClientSignature();
 
+  /**
+   * Returns a comma separated list of property names that should be analyzed via Acrolinx.
+   */
+  String getPropertyNames();
+
 }
