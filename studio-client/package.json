@@ -1,7 +1,7 @@
 {
   "studioPlugins": [
     {
-      "mainClass": "com.coremedia.blueprint.studio.feedbackhub.acrolinx.AcrolinxFeedbackHubStudioPlugin",
+      "mainClass": "com.coremedia.labs.plugins.feedbackhub.acrolinx.AcrolinxFeedbackHubStudioPlugin",
       "name": "FeedbackHub for Acrolinx"
     }
   ]

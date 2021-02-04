@@ -40,7 +40,7 @@ For Configuration Details see section **[Configuration](Configuration.md)**.
 
 ### Issue Tracker
 
-https://github.com/CoreMedia/feedback-hub-adapter-searchmetrics/issues
+https://github.com/CoreMedia/feedback-hub-adapter-acrolinx/issues
 
 ## CoreMedia Labs
 

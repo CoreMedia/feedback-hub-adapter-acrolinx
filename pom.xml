@@ -3,13 +3,13 @@
 
   <groupId>com.coremedia.blueprint.feedbackhub</groupId>
   <artifactId>feedback-hub-adapter-acrolinx</artifactId>
-  <version>1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>studio-server</module>
     <module>studio-client</module>
-    <module>feedback-hub-acrolinx-lib</module>
+    <module>plugin-descriptor</module>
   </modules>
 
   <properties>
