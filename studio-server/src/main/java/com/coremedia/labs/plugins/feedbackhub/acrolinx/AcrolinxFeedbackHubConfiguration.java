@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 public class AcrolinxFeedbackHubConfiguration {
 
   @Bean
-  public AcrolinxFeedbackAdapterFactory acrolinxContentFeedbackProviderFactory() {
-    return new AcrolinxFeedbackAdapterFactory();
+  public AcrolinxFeedbackProviderFactory acrolinxContentFeedbackProviderFactory() {
+    return new AcrolinxFeedbackProviderFactory();
   }
 }

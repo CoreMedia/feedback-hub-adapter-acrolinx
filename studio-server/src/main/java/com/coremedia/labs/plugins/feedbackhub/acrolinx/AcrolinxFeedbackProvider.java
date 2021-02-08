@@ -1,13 +1,12 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx;
 
 import com.coremedia.feedbackhub.adapter.FeedbackContext;
-import com.coremedia.feedbackhub.adapter.text.TextFeedbackHubAdapter;
 import com.coremedia.feedbackhub.items.FeedbackItem;
 import com.coremedia.feedbackhub.items.FeedbackItemFactory;
+import com.coremedia.feedbackhub.provider.FeedbackProvider;
 import com.coremedia.labs.plugins.feedbackhub.acrolinx.items.AcrolinxSidebarFeedbackItem;
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -24,15 +21,15 @@ import java.util.concurrent.CompletionStage;
  *
  */
 @DefaultAnnotation(NonNull.class)
-public class AcrolinxFeedbackAdapter implements TextFeedbackHubAdapter {
+public class AcrolinxFeedbackProvider implements FeedbackProvider {
   private final AcrolinxSettings settings;
 
-  AcrolinxFeedbackAdapter(AcrolinxSettings settings) {
+  AcrolinxFeedbackProvider(AcrolinxSettings settings) {
     this.settings = settings;
   }
 
   @Override
-  public CompletionStage<Collection<FeedbackItem>> analyzeText(FeedbackContext context, Map<String, String> textProperties, @Nullable Locale locale) {
+  public CompletionStage<Collection<FeedbackItem>> provideFeedback(FeedbackContext feedbackContext) {
     List<FeedbackItem> items = new ArrayList<>();
     String host= settings.getServerAddress();
     String clientSignature= settings.getClientSignature();

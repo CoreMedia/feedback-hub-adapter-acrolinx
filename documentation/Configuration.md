@@ -24,6 +24,7 @@ please visit https://www.acrolinx.com/ for more detailed instructions.
       <StringProperty Name="factoryId">acrolinx</StringProperty>
       <StringProperty Name="groupId">acrolinx</StringProperty>
       <StringProperty Name="contentTypes">CMArticle</StringProperty>
+      <StringProperty Name="reloadMode">none</StringProperty>
       <BooleanProperty Name="enabled">true</BooleanProperty>
       <StructProperty Name="settings">
         <Struct>
@@ -44,8 +45,20 @@ Every _settings_ sub-struct contains the following properties:
 
 | Property          | Description   |
 | ----------------- | ------------- |
-| serverAddress     | The Acrolinx server to work on. |
+| serverAddress     | The Acrolinx server to work on, without 'https' prefix. |
 | clientSignature   | The client signature used for API authentication. |
 | propertyNames     | The text based content properties to analyse, invalid ones are ignored. |
 
 
+## Security Settings
+
+In order to allow the Acrolinx Sidebar to be loaded and communicate with the server, different 
+Studio CSP settings have to be adapted:  
+
+```properties
+studio.security.csp.imgSrc='self',data:,http:,https:
+studio.security.csp.script-src='unsafe-eval','unsafe-inline','self',data:,http:,https:,https://unpkg.com/
+studio.security.csp.style-src='unsafe-inline','self',data:,http:,https://<YOUR_ACROLINX_SERVER>/
+studio.security.csp.font-src='self',data:,http:,https:,https://unpkg.com/
+studio.security.csp.connect-src='self',https://<YOUR_ACROLINX_SERVER>/
+```

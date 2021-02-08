@@ -1,14 +1,14 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx;
 
-import com.coremedia.feedbackhub.adapter.FeedbackHubAdapter;
-import com.coremedia.feedbackhub.adapter.FeedbackHubAdapterFactory;
 import com.coremedia.feedbackhub.adapter.FeedbackHubException;
+import com.coremedia.feedbackhub.provider.FeedbackProvider;
+import com.coremedia.feedbackhub.provider.FeedbackProviderFactory;
 import org.apache.commons.lang3.StringUtils;
 
-public class AcrolinxFeedbackAdapterFactory implements FeedbackHubAdapterFactory<AcrolinxSettings> {
+public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<AcrolinxSettings> {
   public static final String TYPE = "acrolinx";
 
-  public AcrolinxFeedbackAdapterFactory() {
+  public AcrolinxFeedbackProviderFactory() {
   }
 
   @Override
@@ -17,7 +17,7 @@ public class AcrolinxFeedbackAdapterFactory implements FeedbackHubAdapterFactory
   }
 
   @Override
-  public FeedbackHubAdapter create(AcrolinxSettings settings) {
+  public FeedbackProvider create(AcrolinxSettings settings) {
     String accessToken = settings.getServerAddress();
     if (StringUtils.isEmpty(accessToken)) {
       throw new FeedbackHubException("settings must provide an server", AcrolinxFeedbackHubErrorCode.SERVER_ADDRESS_NOT_SET);
@@ -28,6 +28,6 @@ public class AcrolinxFeedbackAdapterFactory implements FeedbackHubAdapterFactory
       throw new FeedbackHubException("settings must provide an client signature", AcrolinxFeedbackHubErrorCode.CLIENT_SIGNATURE_NOT_SET);
     }
 
-    return new AcrolinxFeedbackAdapter(settings);
+    return new AcrolinxFeedbackProvider(settings);
   }
 }

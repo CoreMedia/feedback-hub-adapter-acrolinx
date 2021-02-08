@@ -9,6 +9,9 @@
     [ResourceBundle('com.coremedia.labs.plugins.feedbackhub.acrolinx.FeedbackHubAcrolinx')]
   </fx:Metadata>
   <fx:Script><![CDATA[
+    import com.coremedia.cms.studio.feedbackhub.feedbackService;
+    import com.coremedia.labs.plugins.feedbackhub.acrolinx.itemtypes.AcrolinxSidebarPanel;
+
     import mx.resources.ResourceManager;
 
     public static const xtype:String = "com.coremedia.labs.plugins.feedbackhub.acrolinx.config.acrolinxFeedbackHubStudioPlugin";
@@ -16,6 +19,7 @@
     public native function AcrolinxFeedbackHubStudioPlugin(config:AcrolinxFeedbackHubStudioPlugin = null);
 
     private function __initialize__(config:AcrolinxFeedbackHubStudioPlugin):void {
+      feedbackService.registerFeedbackItemPanel("acrolinxSidebar", AcrolinxSidebarPanel({}));
     }
     ]]></fx:Script>
 
