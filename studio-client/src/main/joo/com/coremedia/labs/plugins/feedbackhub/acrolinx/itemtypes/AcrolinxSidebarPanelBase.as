@@ -8,6 +8,7 @@ import com.coremedia.cms.editor.sdk.premular.IPropertyFieldRegistry;
 import com.coremedia.cms.editor.sdk.premular.PremularBase;
 import com.coremedia.cms.editor.sdk.premular.fields.teaser.TeaserOverlayPropertyField;
 import com.coremedia.cms.editor.sdk.remotecontrol.remoteControlHandlerRegistry;
+import com.coremedia.cms.studio.base.cap.models.locale.LocaleUtil;
 import com.coremedia.cms.studio.feedbackhub.components.itempanels.FeedbackItemPanel;
 import com.coremedia.ui.components.StatefulTextField;
 
@@ -15,7 +16,6 @@ import ext.window.Window;
 
 [ResourceBundle('com.coremedia.labs.plugins.feedbackhub.acrolinx.FeedbackHubAcrolinx')]
 public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
-  public static const ACROLINX_SIDEBAR_PLACEHOLDER_ITEM_ID:String = "acrolinxSidebarPlaceholder";
 
   public function AcrolinxSidebarPanelBase(config:AcrolinxSidebarPanel = null) {
     super(config);
@@ -34,7 +34,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
 
   private function adaptHeight(parent:Window):void {
     this.setHeight(parent.height - 160);
-    getTargetElement().setAttribute("style", "height:" + (parent.height - 160) + "px;width:" + (parent.width - 48) + "px;");
+    getTargetElement().setAttribute("style", "height:" + (parent.height - 166) + "px;width:" + (parent.width - 24) + "px;");
   }
 
   private function loadSidebar():void {
@@ -54,6 +54,16 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   private function initAcrolinx():void {
     var server:String = 'https://' + feedbackItem['serverAddress'];
     var clientSignature:String = feedbackItem['clientSignature'];
+    var profileId:String = feedbackItem['profileId'];
+    var uiMode:String = null;
+    var checkSettings:Object = null;
+    if (profileId) {
+      trace('[INFO]', 'Found Acrolinx guidance profile "' + profileId + '", ignoring options.');
+      uiMode = 'noOptions';
+      checkSettings = {
+        'profileId': profileId
+      }
+    }
 
     window.acrolinxSidebar = new window.acrolinx.plugins.initFloatingSidebar({asyncStorage: new window.acrolinx.plugins.AsyncLocalStorage()});
 
@@ -62,7 +72,10 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
       serverAddress: server,
       sidebarContainerId: placeholderId,
       showServerSelector: false,
+      clientLocale: LocaleUtil.getLocale(),
       clientSignature: clientSignature,
+      uiMode: uiMode,
+      checkSettings: checkSettings,
       getDocumentReference: function ():String {
         return getDocumentReference();
       }
@@ -73,13 +86,8 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
 
     acrolinxPlugin.init();
 
-    styleAcrolinx();
+    AcrolinxSidebarCustomizer.styleAcrolinx(getTargetElement());
     window.acrolinxSidebar.remove();
-  }
-
-  private function styleAcrolinx():void {
-    //mmh, some custom styling for the iframe
-    getTargetElement().getElementsByTagName('iframe')[0].style = "height:100%;height:100%;width:100%;border:1px solid #CCC;";
   }
 
   private function getTargetElement():* {

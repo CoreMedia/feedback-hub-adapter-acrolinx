@@ -1,9 +1,15 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx;
 
+import com.coremedia.cap.content.Content;
+import com.coremedia.feedbackhub.FeedbackItemDefaultCollections;
 import com.coremedia.feedbackhub.adapter.FeedbackContext;
 import com.coremedia.feedbackhub.items.FeedbackItem;
 import com.coremedia.feedbackhub.items.FeedbackItemFactory;
+import com.coremedia.feedbackhub.items.LabelFeedbackItem;
+import com.coremedia.feedbackhub.items.LabelFeedbackItemBuilder;
 import com.coremedia.feedbackhub.provider.FeedbackProvider;
+import com.coremedia.labs.plugins.feedbackhub.acrolinx.api.AcrolinxGuidanceProfile;
+import com.coremedia.labs.plugins.feedbackhub.acrolinx.api.AcrolinxService;
 import com.coremedia.labs.plugins.feedbackhub.acrolinx.items.AcrolinxSidebarFeedbackItem;
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
 import edu.umd.cs.findbugs.annotations.NonNull;
@@ -22,9 +28,11 @@ import java.util.concurrent.CompletionStage;
  */
 @DefaultAnnotation(NonNull.class)
 public class AcrolinxFeedbackProvider implements FeedbackProvider {
+  private AcrolinxService acrolinxService;
   private final AcrolinxSettings settings;
 
-  AcrolinxFeedbackProvider(AcrolinxSettings settings) {
+  AcrolinxFeedbackProvider(AcrolinxService acrolinxService, AcrolinxSettings settings) {
+    this.acrolinxService = acrolinxService;
     this.settings = settings;
   }
 
@@ -33,8 +41,24 @@ public class AcrolinxFeedbackProvider implements FeedbackProvider {
     List<FeedbackItem> items = new ArrayList<>();
     String host= settings.getServerAddress();
     String clientSignature= settings.getClientSignature();
+    Content content = (Content) feedbackContext.getEntity();
+    String profileId = null;
+    AcrolinxGuidanceProfile guidanceProfile = acrolinxService.getGuidanceProfileFor(settings, content);
+    if(guidanceProfile != null) {
+      profileId = guidanceProfile.getId();
+
+      LabelFeedbackItem guidanceLabel = LabelFeedbackItemBuilder.builder()
+              .withCollection(FeedbackItemDefaultCollections.HEADER)
+              .withBold()
+              .withLabel("acrolinx_guidance_profile", guidanceProfile.getName())
+              .build();
+
+      items.add(guidanceLabel);
+    }
+
     items.add(FeedbackItemFactory.createFeedbackLink("https://" + host + "/dashboard.html"));
-    items.add(new AcrolinxSidebarFeedbackItem(host, clientSignature, asList(settings.getPropertyNames())));
+    items.add(new AcrolinxSidebarFeedbackItem(host, clientSignature, asList(settings.getPropertyNames()), profileId));
+
     return CompletableFuture.completedFuture(items);
   }
 

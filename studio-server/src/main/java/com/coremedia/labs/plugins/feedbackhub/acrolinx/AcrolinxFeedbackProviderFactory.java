@@ -3,12 +3,15 @@ package com.coremedia.labs.plugins.feedbackhub.acrolinx;
 import com.coremedia.feedbackhub.adapter.FeedbackHubException;
 import com.coremedia.feedbackhub.provider.FeedbackProvider;
 import com.coremedia.feedbackhub.provider.FeedbackProviderFactory;
+import com.coremedia.labs.plugins.feedbackhub.acrolinx.api.AcrolinxService;
 import org.apache.commons.lang3.StringUtils;
 
 public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<AcrolinxSettings> {
   public static final String TYPE = "acrolinx";
+  private AcrolinxService service;
 
-  public AcrolinxFeedbackProviderFactory() {
+  public AcrolinxFeedbackProviderFactory(AcrolinxService service) {
+    this.service = service;
   }
 
   @Override
@@ -28,6 +31,6 @@ public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<
       throw new FeedbackHubException("settings must provide an client signature", AcrolinxFeedbackHubErrorCode.CLIENT_SIGNATURE_NOT_SET);
     }
 
-    return new AcrolinxFeedbackProvider(settings);
+    return new AcrolinxFeedbackProvider(service, settings);
   }
 }

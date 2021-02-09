@@ -43,6 +43,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.acrolinx.client</groupId>
+      <artifactId>sdk</artifactId>
+      <version>1.0.12</version>
+    </dependency>
+    <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>common.beans-for-plugins</artifactId>
     </dependency>
@@ -90,6 +95,13 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

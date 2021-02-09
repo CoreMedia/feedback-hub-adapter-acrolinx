@@ -3,6 +3,7 @@
         xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:exml="http://www.jangaroo.net/exml/0.8"
         xmlns="exml:ext.config"
+        padding="0 0 0 0"
         xmlns:local="com.coremedia.labs.plugins.feedbackhub.acrolinx.itemtypes.*"
         minHeight="300">
   <fx:Metadata>
@@ -17,11 +18,6 @@
     ]]></fx:Script>
 
   <local:items>
-<!--    <DisplayField html="true"-->
-<!--                  ui="{null}"-->
-<!--                  labelAlign="top"-->
-<!--                  itemId="{ACROLINX_SIDEBAR_PLACEHOLDER_ITEM_ID}"-->
-<!--                  width="1"/>-->
   </local:items>
   <local:layout>
     <layout_HBox align="stretch"/>
