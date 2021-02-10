@@ -23,7 +23,6 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
 
   override protected function afterRender():void {
     super.afterRender();
-
     loadSidebar();
 
     //use full height, we do this manually since usually the parent would only use the required height.
@@ -34,7 +33,10 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
 
   private function adaptHeight(parent:Window):void {
     this.setHeight(parent.height - 160);
-    getTargetElement().setAttribute("style", "height:" + (parent.height - 166) + "px;width:" + (parent.width - 24) + "px;");
+    var target:* = getTargetElement();
+    if (target) {
+      target.setAttribute("style", "height:" + (parent.height - 166) + "px;width:" + (parent.width - 24) + "px;");
+    }
   }
 
   private function loadSidebar():void {
@@ -90,9 +92,16 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     window.acrolinxSidebar.remove();
   }
 
+  /**
+   * Resolves inner target element of this container.
+   * This is where we attache the Acrolinx Sidebar.
+   */
   private function getTargetElement():* {
-    var placeholderElement:* = this.el.dom['firstElementChild'].firstElementChild.firstElementChild.firstElementChild; //queryById(ACROLINX_SIDEBAR_PLACEHOLDER_ITEM_ID).el;
-    return placeholderElement;
+    try {
+      return this.el.dom['querySelector']("[data-ref='targetEl']");
+    } catch (e:Error) {
+      return null;
+    }
   }
 
   /**

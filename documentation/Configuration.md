@@ -1,6 +1,6 @@
 # Adapter Configuration
 
-The configuration of the adpater consist of a settings documents that can be
+The configuration of the Acrolinx adapter consist of a settings documents that can be
 put in a global or site-specific folders.
 
 - Global: _/Settings/Options/Settings/Feedback Hub/_
@@ -45,9 +45,11 @@ please visit https://www.acrolinx.com/ for more detailed instructions.
   </settings>
   <identifier></identifier>
 </CMSettings>
-
 ```
 
+Ensure that the _reloadMode_ is set to _none_. This ensures that the Feedback tab panel
+is not re-rendered when a content change is made. Since the Acrolinx detects changes inside 
+textfield by itself, we don't wont the sidebar to be reloaded.
 
 Every _settings_ sub-struct contains the following properties:
 
@@ -63,9 +65,9 @@ Every _settings_ sub-struct contains the following properties:
 
 A profile mapping key can be a CoreMedia site id or a fallback language.
 The value of the profile mapping is the name or id of the Acrolinx guidance profile.
-If you website only supports one profile, you can simply map this profile by using the key value _default_.
-If no mapping is defined or a matching profile is not found, the options menu inside the Acrolinx sidebar are enabled and the 
-user has to select the profile by themself.
+If you website only supports one profile, you can simply map this profile name or id with the key value _default_.
+If no mapping is defined or a matching profile is not found, the options menu inside the Acrolinx sidebar is enabled and the 
+user can select the profile by themself.
 
 
 ## Security Settings

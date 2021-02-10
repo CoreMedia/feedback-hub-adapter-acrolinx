@@ -49,7 +49,6 @@ public class AcrolinxFeedbackProvider implements FeedbackProvider {
 
       LabelFeedbackItem guidanceLabel = LabelFeedbackItemBuilder.builder()
               .withCollection(FeedbackItemDefaultCollections.HEADER)
-              .withBold()
               .withLabel("acrolinx_guidance_profile", guidanceProfile.getName())
               .build();
 

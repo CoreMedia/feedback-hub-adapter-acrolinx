@@ -23,7 +23,7 @@ may be on the latest version branch.
 
 ## Versioning
 
-To find out which CoreMedia versions are supported by this project, 
+To find out which CoreMedia version is supported by this project, 
 please take look at the releases section or on the existing branches. 
 To find the matching version of your CoreMedia system, please checkout the branch 
 with the corresponding name. For example, 
@@ -31,14 +31,19 @@ if your CoreMedia version is 2104.1, checkout the branch 2104.1.
 
 ## Project Setup
 
-### Configuration
+For Configuration Details see section **[Configuration](documentation/Configuration.md)**.
 
-For Configuration Details see section **[Configuration](Configuration.md)**.
+#### Screenshots
 
-### Screenshots
+![Feedback Rendering](documentation/acrolinx_1.png "Acrolinx Feedback")
 
+The Acrolinx Sidebar
 
-### Issue Tracker
+![Feedback Rendering](documentation/acrolinx_2.png "Acrolinx Feedback")
+
+Feedback for CoreMedia richtext.
+
+#### Issue Tracker
 
 https://github.com/CoreMedia/feedback-hub-adapter-acrolinx/issues
 
@@ -51,7 +56,7 @@ CoreMedia. Whatever your experience level with CoreMedia is, we've got something
 for you.
 
 Each project in our Labs platform is an extra feature to be used with CoreMedia,
-including extensions, tools and 3rd party integrations. We provide some test
+including extensions, plugins, tools and 3rd party integrations. We provide some test
 data and explanatory videos for non-customers and for insiders there is
 open-source code and instructions on integrating the feature into your
 CoreMedia workspace. 
