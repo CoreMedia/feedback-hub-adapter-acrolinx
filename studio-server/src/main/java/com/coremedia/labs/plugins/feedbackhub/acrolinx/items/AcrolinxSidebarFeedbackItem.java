@@ -46,6 +46,7 @@ public class AcrolinxSidebarFeedbackItem implements FeedbackItem {
     return profileId;
   }
 
+  @Override
   public String getType() {
     return "acrolinxSidebar";
   }

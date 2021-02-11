@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<AcrolinxSettings> {
   public static final String TYPE = "acrolinx";
-  private AcrolinxService service;
+  private final AcrolinxService service;
 
   public AcrolinxFeedbackProviderFactory(AcrolinxService service) {
     this.service = service;

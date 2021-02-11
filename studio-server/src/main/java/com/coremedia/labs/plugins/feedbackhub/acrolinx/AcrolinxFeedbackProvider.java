@@ -28,7 +28,7 @@ import java.util.concurrent.CompletionStage;
  */
 @DefaultAnnotation(NonNull.class)
 public class AcrolinxFeedbackProvider implements FeedbackProvider {
-  private AcrolinxService acrolinxService;
+  private final AcrolinxService acrolinxService;
   private final AcrolinxSettings settings;
 
   AcrolinxFeedbackProvider(AcrolinxService acrolinxService, AcrolinxSettings settings) {
@@ -44,6 +44,8 @@ public class AcrolinxFeedbackProvider implements FeedbackProvider {
     Content content = (Content) feedbackContext.getEntity();
     String profileId = null;
     AcrolinxGuidanceProfile guidanceProfile = acrolinxService.getGuidanceProfileFor(settings, content);
+
+    //if a profile was found, provide a label at the top of the sidebar
     if(guidanceProfile != null) {
       profileId = guidanceProfile.getId();
 

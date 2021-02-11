@@ -10,6 +10,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -31,12 +32,17 @@ public class AcrolinxService {
   }
 
   /**
-   * Returns the list of guidance profiles from Acrolinx.
+   * Returns the list of guidance profiles from Acrolinx if an access token
+   * was provided with the settings.
+   * Otherwise the user has to choose their profile manually.
    */
   @NonNull
   public List<AcrolinxGuidanceProfile> getGuidanceProfiles(@NonNull AcrolinxSettings settings) {
-    GuidanceProfilesCacheKey key = new GuidanceProfilesCacheKey(settings.getServerAddress(), settings.getAccessToken(), settings.getClientSignature());
-    return cache.get(key);
+    if(!StringUtils.isEmpty(settings.getAccessToken())) {
+      GuidanceProfilesCacheKey key = new GuidanceProfilesCacheKey(settings.getServerAddress(), settings.getAccessToken(), settings.getClientSignature());
+      return cache.get(key);
+    }
+    return Collections.emptyList();
   }
 
   /**

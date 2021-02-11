@@ -15,11 +15,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Time based caching for guidance profiles
  */
 public class GuidanceProfilesCacheKey extends CacheKey<List<AcrolinxGuidanceProfile>> {
   public static final String ENDPOINT_LOCALE = "en";
   public static final int CACHE_DURATION_MINUTES = 5;
+  public static final String CLIENT_VERSION = "1.2.3.4";
 
   private final String serverAddress;
   private final String token;
@@ -40,7 +41,7 @@ public class GuidanceProfilesCacheKey extends CacheKey<List<AcrolinxGuidanceProf
     URI realAcrolinxURL = new URI(serverAddress);
     AccessToken accessToken = new AccessToken(token);
 
-    AcrolinxEndpoint endpoint = new AcrolinxEndpoint(realAcrolinxURL, signature, "1.2.3.4", ENDPOINT_LOCALE);
+    AcrolinxEndpoint endpoint = new AcrolinxEndpoint(realAcrolinxURL, signature, CLIENT_VERSION, ENDPOINT_LOCALE);
     Capabilities capabilities = endpoint.getCapabilities(accessToken);
     CheckingCapabilities checkingCapabilities = capabilities.getCheckingCapabilities();
     List<GuidanceProfile> guidanceProfiles = checkingCapabilities.getGuidanceProfiles();

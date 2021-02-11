@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
- *
+ * The settings of the Acrolinx adapter.
  */
 public interface AcrolinxSettings {
 
@@ -34,7 +34,8 @@ public interface AcrolinxSettings {
   String getAccessToken();
 
   /**
-   * Enables an automatic mapping from CoreMedia content to a Acrolinx guidance profile.
+   * The actual backing struct which stores this settings.
+   * We have to access it in order to read the profile mapping.
    */
   @Nullable
   Object getContent();
