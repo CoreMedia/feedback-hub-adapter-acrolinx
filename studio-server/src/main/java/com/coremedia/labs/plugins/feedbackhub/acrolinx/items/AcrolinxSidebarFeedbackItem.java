@@ -27,7 +27,7 @@ public class AcrolinxSidebarFeedbackItem implements FeedbackItem {
   @Nullable
   @Override
   public String getCollection() {
-    return FeedbackItemDefaultCollections.HEADER;
+    return FeedbackItemDefaultCollections.header.name();
   }
 
   public List<String> getProperties() {
