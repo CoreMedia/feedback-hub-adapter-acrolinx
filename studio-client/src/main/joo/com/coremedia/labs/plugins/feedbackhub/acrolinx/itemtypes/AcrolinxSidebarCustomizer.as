@@ -6,7 +6,7 @@ public class AcrolinxSidebarCustomizer {
     //mmh, some custom styling for the iframe
     var iframe:* = targetElement.getElementsByTagName('iframe')[0];
     if (iframe) {
-      iframe.style = "height:100%;height:100%;width:100%;border:1px solid #CCC;background-color:#FFF;";
+      iframe.style = "height:100%;height:100%;width:100%;border:1px solid #dadada;";
       styleAcrolinxIFrame(iframe, 10000);
     }
   }

@@ -41,7 +41,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     this.setHeight(parent.height - 160);
     var target:* = getTargetElement();
     if (target) {
-      target.setAttribute("style", "height:" + (parent.height - 166) + "px;width:" + (parent.width - 24) + "px;");
+      target.setAttribute("style", "height:" + (parent.height - 166) + "px;width:" + (parent.width - 24) + "px;background-color:#FFF;");
     }
   }
 
