@@ -34,7 +34,7 @@ public class AcrolinxService {
   /**
    * Returns the list of guidance profiles from Acrolinx if an access token
    * was provided with the settings.
-   * Otherwise the user has to choose their profile manually.
+   * Otherwise the user has to choose the profile manually.
    */
   @NonNull
   public List<AcrolinxGuidanceProfile> getGuidanceProfiles(@NonNull AcrolinxSettings settings) {
