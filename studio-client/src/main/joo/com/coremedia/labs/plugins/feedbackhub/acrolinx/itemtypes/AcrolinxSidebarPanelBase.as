@@ -96,7 +96,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
       uiMode: uiMode,
       checkSettings: checkSettings,
       getDocumentReference: function ():String {
-        return getDocumentReference();
+        return getDocumentRef();
       }
     });
 
@@ -106,7 +106,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     //finished with configuration, let's start the plugin
     acrolinxPlugin.init();
 
-    //once loaded, we try to fix the styling a little bit -> on fix 300px width for us
+    //once loaded, we try to fix the styling a little bit -> 300px width is not enough for us
     AcrolinxSidebarCustomizer.styleAcrolinx(getTargetElement());
 
     //remove floating sidebar
@@ -188,7 +188,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
    * Returns the unique reference for the Acrolinx system.
    * We use the remote control URL here.
    */
-  private function getDocumentReference():String {
+  private function getDocumentRef():String {
     var content:Content = contentExpression.getValue();
     return remoteControlHandlerRegistry.createRemoteControlUrl(content);
   }

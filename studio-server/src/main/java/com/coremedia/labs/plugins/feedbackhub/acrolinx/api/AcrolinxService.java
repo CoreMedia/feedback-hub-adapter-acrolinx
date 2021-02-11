@@ -28,6 +28,7 @@ public class AcrolinxService {
 
   public AcrolinxService(SitesService sitesService) {
     this.cache = new Cache(ACROLINX_CACHE);
+    this.cache.setCapacity(Object.class.getName(), 100);
     this.sitesService = sitesService;
   }
 
