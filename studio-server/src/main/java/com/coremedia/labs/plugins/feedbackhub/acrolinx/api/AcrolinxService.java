@@ -8,6 +8,7 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.labs.plugins.feedbackhub.acrolinx.AcrolinxSettings;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,16 @@ import java.util.Map;
  * Service for accessing the Acrolinx SDK.
  */
 public class AcrolinxService {
+  public static final String ACROLINX_CACHE = "acrolinx";
 
-  private Cache cache;
-  private SitesService sitesService;
+  public static final String PROFILE_MAPPING_PROPERTY = "profileMapping";
+  public static final String DEFAULT_PROFILE_MAPPING_KEY = "default";
+
+  private final Cache cache;
+  private final SitesService sitesService;
 
   public AcrolinxService(SitesService sitesService) {
-    this.cache = new Cache("acrolinx");
+    this.cache = new Cache(ACROLINX_CACHE);
     this.sitesService = sitesService;
   }
 
@@ -34,37 +39,66 @@ public class AcrolinxService {
     return cache.get(key);
   }
 
+  /**
+   * Tries to resole a guidance profile for the given content.
+   *
+   * @param acrolinxSettings the settings to connect the Acrolinx SDK with
+   * @param content          the content to resolve the guidance profile for
+   */
   @Nullable
   public AcrolinxGuidanceProfile getGuidanceProfileFor(@NonNull AcrolinxSettings acrolinxSettings, @NonNull Content content) {
     List<AcrolinxGuidanceProfile> guidanceProfiles = getGuidanceProfiles(acrolinxSettings);
     Site site = sitesService.getContentSiteAspect(content).getSite();
-    Struct profileMapping = ((Struct) acrolinxSettings.getContent()).getStruct("profileMapping");
+
+    //we use the hidden "getContent()" proxy method to get the actual settings struct to get the mapping struct
+    Struct settingsStruct = (Struct) acrolinxSettings.getContent();
+    if (!settingsStruct.toNestedMaps().containsKey(PROFILE_MAPPING_PROPERTY)) {
+      return null;
+    }
+
+    Struct profileMapping = (settingsStruct).getStruct(PROFILE_MAPPING_PROPERTY);
+    if (site != null && profileMapping != null) {
+      return getAcrolinxGuidanceProfile(guidanceProfiles, site, profileMapping);
+    }
+
+    return null;
+  }
+
+  /**
+   * The profile mapping is is a key/value list of CoreMedia Side Ids/Language to Acrolinx Profile Name/Id.
+   * If only one profile is supported, this one can be mapped through the key value "default".
+   *
+   * @param guidanceProfiles the list of Acrolinx guidance profiles
+   * @param site             the site of the content to analyze
+   * @param profileMapping   the profile mapping struct
+   * @return the guidance profile for the content or null if not suitable mapping was found
+   */
+  @Nullable
+  private AcrolinxGuidanceProfile getAcrolinxGuidanceProfile(List<AcrolinxGuidanceProfile> guidanceProfiles, Site site, Struct profileMapping) {
+    Map<String, Object> profilesMap = profileMapping.toNestedMaps();
     AcrolinxGuidanceProfile guidanceProfile = null;
 
-    if (site != null && profileMapping != null) {
-      Map<String, Object> profilesMap = profileMapping.toNestedMaps();
-
-      //try to find a mapping for the given site
-      if (profilesMap.containsKey(site.getId())) {
-        String profileIdOrName = (String) profilesMap.get(site.getId());
+    //try to find a mapping for the given site
+    if (profilesMap.containsKey(site.getId())) {
+      String profileIdOrName = (String) profilesMap.get(site.getId());
+      if (!StringUtils.isEmpty(profileIdOrName)) {
         guidanceProfile = findProfileByIdOrName(profileIdOrName, guidanceProfiles);
-      }
-
-      //try language next
-      if (guidanceProfile == null) {
-        String language = site.getLocale().getLanguage();
-        guidanceProfile = findProfileByLanguage(language, guidanceProfiles);
-      }
-
-      //check if there is an overall default profile
-      if (guidanceProfile == null) {
-        if (profilesMap.containsKey("default")) {
-          String profileIdOrName = (String) profilesMap.get("default");
-          guidanceProfile = findProfileByIdOrName(profileIdOrName, guidanceProfiles);
-        }
       }
     }
 
+    //try language next
+    if (guidanceProfile == null) {
+      String language = site.getLocale().getLanguage();
+      guidanceProfile = findProfileByLanguage(language, guidanceProfiles);
+    }
+
+    //check if there is an overall default profile
+    if (guidanceProfile == null && profilesMap.containsKey(DEFAULT_PROFILE_MAPPING_KEY)) {
+      String profileIdOrName = (String) profilesMap.get(DEFAULT_PROFILE_MAPPING_KEY);
+      if (!StringUtils.isEmpty(profileIdOrName)) {
+        guidanceProfile = findProfileByIdOrName(profileIdOrName, guidanceProfiles);
+      }
+    }
     return guidanceProfile;
   }
 
