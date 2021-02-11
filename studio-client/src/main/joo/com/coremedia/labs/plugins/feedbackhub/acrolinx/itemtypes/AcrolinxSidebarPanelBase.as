@@ -16,6 +16,7 @@ import ext.window.Window;
 
 [ResourceBundle('com.coremedia.labs.plugins.feedbackhub.acrolinx.FeedbackHubAcrolinx')]
 public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
+  private static const ACROLINX_SIDEBAR_JS:String = "https://unpkg.com/@acrolinx/sidebar-sdk/dist/acrolinx-sidebar-sdk.js";
 
   public function AcrolinxSidebarPanelBase(config:AcrolinxSidebarPanel = null) {
     super(config);
@@ -31,6 +32,11 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     adaptHeight(parent);
   }
 
+  /**
+   * The listener function for adapting the height.
+   * Since we customize the DOM manually with the Sidebar, we have to take care of that manually.
+   * @param parent the Feedback Window
+   */
   private function adaptHeight(parent:Window):void {
     this.setHeight(parent.height - 160);
     var target:* = getTargetElement();
@@ -39,10 +45,15 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     }
   }
 
+  /**
+   * Ensures the loading of the Acrolinx Sidebar JavaScript.
+   * The script is loaded from an external URL, so ensure that the Studio CSP
+   * settings are set according to the documentation of this integration.
+   */
   private function loadSidebar():void {
     if (!window.acrolinxSidebar) {
       var script:* = window.document.createElement('script');
-      script.src = "https://unpkg.com/@acrolinx/sidebar-sdk/dist/acrolinx-sidebar-sdk.js";
+      script.src = ACROLINX_SIDEBAR_JS;
       script.addEventListener('load', function ():void {
         initAcrolinx();
       });
@@ -53,11 +64,17 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     }
   }
 
+  /**
+   * Executes everytime the Acrolinx feedback panel is rendered.
+   * The external JS is loaded at this point.
+   */
   private function initAcrolinx():void {
     var server:String = 'https://' + feedbackItem['serverAddress'];
     var clientSignature:String = feedbackItem['clientSignature'];
     var profileId:String = feedbackItem['profileId'];
     var uiMode:String = null;
+
+    //checker settings, we ignore options when there is a guidance profile mapping available
     var checkSettings:Object = null;
     if (profileId) {
       trace('[INFO]', 'Found Acrolinx guidance profile "' + profileId + '", ignoring options.');
@@ -86,15 +103,19 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     //register an editor adapter for every field that has been configured by the user for the given document type
     registerEditorAdapters(acrolinxPlugin);
 
+    //finished with configuration, let's start the plugin
     acrolinxPlugin.init();
 
+    //once loaded, we try to fix the styling a little bit -> on fix 300px width for us
     AcrolinxSidebarCustomizer.styleAcrolinx(getTargetElement());
+
+    //remove floating sidebar
     window.acrolinxSidebar.remove();
   }
 
   /**
    * Resolves inner target element of this container.
-   * This is where we attache the Acrolinx Sidebar.
+   * This is where we attach the Acrolinx Sidebar.
    */
   private function getTargetElement():* {
     try {
@@ -114,7 +135,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     var registry:IPropertyFieldRegistry = getFieldRegistry();
 
 
-    var multiAdapter = new window.acrolinx.plugins.adapter.MultiEditorAdapter({
+    var multiAdapter:* = new window.acrolinx.plugins.adapter.MultiEditorAdapter({
       // Optional: Can be used to set the DOCTYPE
       // documentHeader: '<!DOCTYPE html>\n',
       // Optional: Wrapper around the complete concatenated html
@@ -157,7 +178,6 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   /**
    * Returns the editor registry that we use to resolve the element ids
    * for Acrolinx.
-   * @return
    */
   private static function getFieldRegistry():IPropertyFieldRegistry {
     var activePremular:PremularBase = editorContext.getWorkArea().getActiveTab() as PremularBase;

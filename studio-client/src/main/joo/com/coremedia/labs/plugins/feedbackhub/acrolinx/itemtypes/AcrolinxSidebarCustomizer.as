@@ -2,9 +2,6 @@ package com.coremedia.labs.plugins.feedbackhub.acrolinx.itemtypes {
 public class AcrolinxSidebarCustomizer {
   private static const DELAY:Number = 200;
 
-  public function AcrolinxSidebarCustomizer() {
-  }
-
   public static function styleAcrolinx(targetElement:*):void {
     //mmh, some custom styling for the iframe
     var iframe:* = targetElement.getElementsByTagName('iframe')[0];
