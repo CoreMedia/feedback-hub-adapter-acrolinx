@@ -9,9 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<AcrolinxSettings> {
   public static final String TYPE = "acrolinx";
   private final AcrolinxService service;
+  private final String clientSignature;
 
-  public AcrolinxFeedbackProviderFactory(AcrolinxService service) {
+  public AcrolinxFeedbackProviderFactory(AcrolinxService service, String clientSignature) {
     this.service = service;
+    this.clientSignature = clientSignature;
   }
 
   @Override
@@ -27,7 +29,7 @@ public class AcrolinxFeedbackProviderFactory implements FeedbackProviderFactory<
     }
 
     String signature = settings.getClientSignature();
-    if (StringUtils.isEmpty(signature)) {
+    if (StringUtils.isEmpty(signature) && StringUtils.isEmpty(clientSignature)) {
       throw new FeedbackHubException("settings must provide an client signature", AcrolinxFeedbackHubErrorCode.CLIENT_SIGNATURE_NOT_SET);
     }
 

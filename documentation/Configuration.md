@@ -61,6 +61,10 @@ Every _settings_ sub-struct contains the following properties:
 | propertyNames     | The text based content properties to analyse, invalid ones are ignored. |
 | profileMapping    | Defines a mapping from CoreMedia sites to Acrolinx guidance profiles. |
 
+The _clientSignature_ property doesn't have to be necessarily configured within the settings document.
+If you don't want this value to be visible in content, you can set it also in the _configuration.properties_
+inside the _resources_ folder of the _studio-server_m module.
+
 #### Acrolinx Guidance Profiles
 
 A profile mapping key can be a CoreMedia site id or a fallback language.

@@ -8,6 +8,8 @@ import com.coremedia.cms.editor.sdk.premular.IPropertyFieldRegistry;
 import com.coremedia.cms.editor.sdk.premular.PremularBase;
 import com.coremedia.cms.editor.sdk.premular.fields.teaser.TeaserOverlayPropertyField;
 import com.coremedia.cms.editor.sdk.remotecontrol.remoteControlHandlerRegistry;
+import com.coremedia.cms.editor.sdk.util.ContentLocalizationUtil;
+import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.cms.studio.base.cap.models.locale.LocaleUtil;
 import com.coremedia.cms.studio.feedbackhub.components.itempanels.FeedbackItemPanel;
 import com.coremedia.ui.components.StatefulTextField;
@@ -134,35 +136,35 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     var content:Content = contentExpression.getValue();
     var registry:IPropertyFieldRegistry = getFieldRegistry();
 
-
     var multiAdapter:* = new window.acrolinx.plugins.adapter.MultiEditorAdapter({
-      // Optional: Can be used to set the DOCTYPE
-      // documentHeader: '<!DOCTYPE html>\n',
-      // Optional: Wrapper around the complete concatenated html
-      // rootElement: {tagName: 'html'}
-      // beforeCheck: function (multiAdapterArgument) {
-      //   multiAdapterArgument.removeAllAdapters();
-      //   multiAdapterArgument.addSingleAdapter(...)
-      // }
+      documentHeader: '<!DOCTYPE xml>',
+      rootElement: {tagName: 'coremedia'}
     });
 
     for each(var propertyName:String in propertyNames) {
       var descriptor:CapPropertyDescriptor = content.getType().getDescriptor(propertyName);
       if (descriptor) {
         var field:* = registry.getPropertyField(ContentPropertyNames.PROPERTIES + '.' + propertyName, content.getType().getName());
+        var fieldName:String = descriptor.name;
+        var visibleName:String = PropertyEditorUtil.getLocalizedString(content.getType().getName(), fieldName, 'text', fieldName);
+
+        var attr:Object = { attributes: {
+          'class': fieldName,
+          'data-visibleName': visibleName
+        }};
 
         if (field && field.xtype) {
           if (field.xtype === CoreMediaRichTextArea.xtype) {
             var richtextId:String = field.getCKEditor().element.getId();
-            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.CKEditorAdapter({editorId: richtextId}));
+            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.CKEditorAdapter({editorId: richtextId}), attr);
           }
           else if (field.xtype == StatefulTextField.xtype) {
             var fieldId:String = field.getInputId();
-            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: fieldId}));
+            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: fieldId}), attr);
           }
           else if (field.xtype == TeaserOverlayPropertyField.xtype) {
             var overlayId:String = field.getInputId();
-            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: overlayId}));
+            multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: overlayId}), attr);
           }
           else {
             trace('[INFO]', 'Acrolinx integration found no suitable editor for property "' + propertyName + '"');
