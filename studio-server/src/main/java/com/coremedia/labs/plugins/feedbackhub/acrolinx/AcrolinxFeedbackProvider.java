@@ -39,14 +39,14 @@ public class AcrolinxFeedbackProvider implements FeedbackProvider {
   @Override
   public CompletionStage<Collection<FeedbackItem>> provideFeedback(FeedbackContext feedbackContext) {
     List<FeedbackItem> items = new ArrayList<>();
-    String host= settings.getServerAddress();
-    String clientSignature= settings.getClientSignature();
+    String host = settings.getServerAddress();
+    String clientSignature = acrolinxService.getClientSignature(settings);
     Content content = (Content) feedbackContext.getEntity();
     String profileId = null;
     AcrolinxGuidanceProfile guidanceProfile = acrolinxService.getGuidanceProfileFor(settings, content);
 
     //if a profile was found, provide a label at the top of the sidebar
-    if(guidanceProfile != null) {
+    if (guidanceProfile != null) {
       profileId = guidanceProfile.getId();
 
       LabelFeedbackItem guidanceLabel = LabelFeedbackItemBuilder.builder()
@@ -65,14 +65,15 @@ public class AcrolinxFeedbackProvider implements FeedbackProvider {
 
   /**
    * Converts the CSV value into a list
+   *
    * @param propertyNames the CSV string which contains the property names
    */
   private List<String> asList(String propertyNames) {
-    if(StringUtils.isEmpty(propertyNames)) {
+    if (StringUtils.isEmpty(propertyNames)) {
       return Collections.emptyList();
     }
 
-    if(propertyNames.contains(",")) {
+    if (propertyNames.contains(",")) {
       return Arrays.asList(propertyNames.split(","));
     }
 

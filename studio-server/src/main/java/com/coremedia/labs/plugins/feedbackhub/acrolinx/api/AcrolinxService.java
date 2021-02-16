@@ -42,7 +42,7 @@ public class AcrolinxService {
   @NonNull
   public List<AcrolinxGuidanceProfile> getGuidanceProfiles(@NonNull AcrolinxSettings settings) {
     if (!StringUtils.isEmpty(settings.getAccessToken())) {
-      String signature = getSignature(settings);
+      String signature = getClientSignature(settings);
       GuidanceProfilesCacheKey key = new GuidanceProfilesCacheKey(settings.getServerAddress(), settings.getAccessToken(), signature);
       return cache.get(key);
     }
@@ -112,7 +112,7 @@ public class AcrolinxService {
     return guidanceProfile;
   }
 
-  private String getSignature(AcrolinxSettings settings) {
+  public String getClientSignature(AcrolinxSettings settings) {
     if (!StringUtils.isEmpty(clientSignature)) {
       return clientSignature;
     }
