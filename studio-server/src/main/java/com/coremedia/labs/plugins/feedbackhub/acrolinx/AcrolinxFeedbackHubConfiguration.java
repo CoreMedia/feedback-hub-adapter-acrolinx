@@ -20,6 +20,7 @@ public class AcrolinxFeedbackHubConfiguration {
   private static final Logger LOG = LoggerFactory.getLogger(AcrolinxFeedbackHubConfiguration.class);
 
   private String signature;
+  private String studioVersion;
 
   public AcrolinxFeedbackHubConfiguration() {
     loadPropertiesSet();
@@ -27,7 +28,7 @@ public class AcrolinxFeedbackHubConfiguration {
 
   @Bean
   public AcrolinxService acrolinxService(@NonNull SitesService sitesService) {
-    return new AcrolinxService(sitesService, signature);
+    return new AcrolinxService(sitesService, signature, studioVersion);
   }
 
   @Bean
@@ -49,9 +50,11 @@ public class AcrolinxFeedbackHubConfiguration {
       prop.load(input);
       signature = prop.getProperty("acrolinx.signature");
 
-      if(!StringUtils.isEmpty(signature)) {
+      if (!StringUtils.isEmpty(signature)) {
         LOG.info("Successfully loaded Acrolinx settings.");
       }
+
+      studioVersion = prop.getProperty("studio.version");
     } catch (Exception e) {
       LOG.error("Failed to load Acrolinx configuration.properties: " + e.getMessage(), e);
     }

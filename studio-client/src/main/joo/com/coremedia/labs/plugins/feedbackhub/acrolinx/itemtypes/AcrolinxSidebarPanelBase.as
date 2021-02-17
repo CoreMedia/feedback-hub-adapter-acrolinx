@@ -1,5 +1,6 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx.itemtypes {
 import com.coremedia.cap.common.CapPropertyDescriptor;
+import com.coremedia.cap.common.SESSION;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.content.ContentPropertyNames;
 import com.coremedia.cms.editor.sdk.components.CoreMediaRichTextArea;
@@ -8,7 +9,6 @@ import com.coremedia.cms.editor.sdk.premular.IPropertyFieldRegistry;
 import com.coremedia.cms.editor.sdk.premular.PremularBase;
 import com.coremedia.cms.editor.sdk.premular.fields.teaser.TeaserOverlayPropertyField;
 import com.coremedia.cms.editor.sdk.remotecontrol.remoteControlHandlerRegistry;
-import com.coremedia.cms.editor.sdk.util.ContentLocalizationUtil;
 import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.cms.studio.base.cap.models.locale.LocaleUtil;
 import com.coremedia.cms.studio.feedbackhub.components.itempanels.FeedbackItemPanel;
@@ -99,7 +99,15 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
       checkSettings: checkSettings,
       getDocumentReference: function ():String {
         return getDocumentRef();
-      }
+      },
+      clientComponents: [
+         {
+           id: 'com.coremedia.labs.feedback.acrolinx',
+           name: 'CoreMedia Feedback Hub Adapter for Acrolinx',
+           version: SESSION.getConnection().getLoginService().getVersion(),
+           category: 'MAIN'
+         }
+      ]
     });
 
     //register an editor adapter for every field that has been configured by the user for the given document type

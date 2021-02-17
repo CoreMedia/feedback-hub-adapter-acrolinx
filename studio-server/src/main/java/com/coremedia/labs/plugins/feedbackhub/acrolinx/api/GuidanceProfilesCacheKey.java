@@ -20,15 +20,16 @@ import java.util.stream.Collectors;
 public class GuidanceProfilesCacheKey extends CacheKey<List<AcrolinxGuidanceProfile>> {
   public static final String ENDPOINT_LOCALE = "en";
   public static final int CACHE_DURATION_MINUTES = 5;
-  public static final String CLIENT_VERSION = "1.2.3.4";
 
   private final String serverAddress;
   private final String token;
   private final String signature;
+  private final String studioVersion;
 
-  public GuidanceProfilesCacheKey(String url, String token, String signature) {
+  public GuidanceProfilesCacheKey(String url, String token, String signature, String studioVersion) {
     this.token = token;
     this.signature = signature;
+    this.studioVersion = studioVersion;
 
     if(!url.startsWith("http")) {
       url = "https://" + url;
@@ -41,7 +42,7 @@ public class GuidanceProfilesCacheKey extends CacheKey<List<AcrolinxGuidanceProf
     URI realAcrolinxURL = new URI(serverAddress);
     AccessToken accessToken = new AccessToken(token);
 
-    AcrolinxEndpoint endpoint = new AcrolinxEndpoint(realAcrolinxURL, signature, CLIENT_VERSION, ENDPOINT_LOCALE);
+    AcrolinxEndpoint endpoint = new AcrolinxEndpoint(realAcrolinxURL, signature, studioVersion, ENDPOINT_LOCALE);
     Capabilities capabilities = endpoint.getCapabilities(accessToken);
     CheckingCapabilities checkingCapabilities = capabilities.getCheckingCapabilities();
     List<GuidanceProfile> guidanceProfiles = checkingCapabilities.getGuidanceProfiles();

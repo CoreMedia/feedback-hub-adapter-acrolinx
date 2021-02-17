@@ -25,10 +25,12 @@ public class AcrolinxService {
 
   private final Cache cache;
   private final SitesService sitesService;
-  private String clientSignature;
+  private final String clientSignature;
+  private final String studioVersion;
 
-  public AcrolinxService(SitesService sitesService, String clientSignature) {
+  public AcrolinxService(SitesService sitesService, String clientSignature, String studioVersion) {
     this.clientSignature = clientSignature;
+    this.studioVersion = studioVersion;
     this.cache = new Cache(ACROLINX_CACHE);
     this.cache.setCapacity(Object.class.getName(), 20);
     this.sitesService = sitesService;
@@ -43,7 +45,7 @@ public class AcrolinxService {
   public List<AcrolinxGuidanceProfile> getGuidanceProfiles(@NonNull AcrolinxSettings settings) {
     if (!StringUtils.isEmpty(settings.getAccessToken())) {
       String signature = getClientSignature(settings);
-      GuidanceProfilesCacheKey key = new GuidanceProfilesCacheKey(settings.getServerAddress(), settings.getAccessToken(), signature);
+      GuidanceProfilesCacheKey key = new GuidanceProfilesCacheKey(settings.getServerAddress(), settings.getAccessToken(), signature, studioVersion);
       return cache.get(key);
     }
     return Collections.emptyList();
