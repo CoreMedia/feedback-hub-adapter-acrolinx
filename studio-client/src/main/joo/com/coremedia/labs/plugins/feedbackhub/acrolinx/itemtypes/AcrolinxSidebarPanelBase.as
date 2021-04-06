@@ -161,7 +161,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
           'data-visibleName': visibleName
         }};
 
-        if (field && field.xtype) {
+        if (field && field.xtype && field.rendered) {
           if (field.xtype === CoreMediaRichTextArea.xtype) {
             var richtextId:String = field.getCKEditor().element.getId();
             multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.CKEditorAdapter({editorId: richtextId}), attr);
