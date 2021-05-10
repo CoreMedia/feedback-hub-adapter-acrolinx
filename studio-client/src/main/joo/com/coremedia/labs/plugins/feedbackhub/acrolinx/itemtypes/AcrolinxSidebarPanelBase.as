@@ -12,13 +12,25 @@ import com.coremedia.cms.editor.sdk.remotecontrol.remoteControlHandlerRegistry;
 import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.cms.studio.base.cap.models.locale.LocaleUtil;
 import com.coremedia.cms.studio.feedbackhub.components.itempanels.FeedbackItemPanel;
+import com.coremedia.labs.plugins.feedbackhub.acrolinx.AcrolinxAdapterCustomizer;
 import com.coremedia.ui.components.StatefulTextField;
+
+import ext.Ext;
 
 import ext.window.Window;
 
+/**
+ * Check https://acrolinx.github.io/acrolinx-sidebar-demo/samples/multi-editor.html to see some other
+ * examples and API usage.
+ *
+ * Also: https://github.com/acrolinx/sidebar-sdk-js
+ */
 [ResourceBundle('com.coremedia.labs.plugins.feedbackhub.acrolinx.FeedbackHubAcrolinx')]
 public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   private static const ACROLINX_SIDEBAR_JS:String = "https://unpkg.com/@acrolinx/sidebar-sdk/dist/acrolinx-sidebar-sdk.js";
+
+  private var acrolinxPlugin:*;
+  private var multiAdapter:*;
 
   public function AcrolinxSidebarPanelBase(config:AcrolinxSidebarPanel = null) {
     super(config);
@@ -60,8 +72,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         initAcrolinx();
       });
       window.document['head'].appendChild(script);
-    }
-    else {
+    } else {
       initAcrolinx();
     }
   }
@@ -89,7 +100,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     window.acrolinxSidebar = new window.acrolinx.plugins.initFloatingSidebar({asyncStorage: new window.acrolinx.plugins.AsyncLocalStorage()});
 
     var placeholderId:String = getTargetElement().id;
-    var acrolinxPlugin:* = new window.acrolinx.plugins.AcrolinxPlugin({
+    acrolinxPlugin = new window.acrolinx.plugins.AcrolinxPlugin({
       serverAddress: server,
       sidebarContainerId: placeholderId,
       showServerSelector: false,
@@ -101,12 +112,12 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         return getDocumentRef();
       },
       clientComponents: [
-         {
-           id: 'com.coremedia.labs.feedback.acrolinx',
-           name: 'CoreMedia Feedback Hub Adapter for Acrolinx',
-           version: SESSION.getConnection().getLoginService().getVersion(),
-           category: 'MAIN'
-         }
+        {
+          id: 'com.coremedia.labs.feedback.acrolinx',
+          name: 'CoreMedia Feedback Hub Adapter for Acrolinx',
+          version: SESSION.getConnection().getLoginService().getVersion(),
+          category: 'MAIN'
+        }
       ]
     });
 
@@ -118,6 +129,9 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
 
     //once loaded, we try to fix the styling a little bit -> 300px width is not enough for us
     AcrolinxSidebarCustomizer.styleAcrolinx(getTargetElement());
+
+    //customize adapters that that changes are actually applied to the content
+    AcrolinxAdapterCustomizer.init();
 
     //remove floating sidebar
     window.acrolinxSidebar.remove();
@@ -144,7 +158,7 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     var content:Content = contentExpression.getValue();
     var registry:IPropertyFieldRegistry = getFieldRegistry();
 
-    var multiAdapter:* = new window.acrolinx.plugins.adapter.MultiEditorAdapter({
+    multiAdapter = new window.acrolinx.plugins.adapter.MultiEditorAdapter({
       documentHeader: '<!DOCTYPE xml>',
       rootElement: {tagName: 'coremedia'}
     });
@@ -156,25 +170,25 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         var fieldName:String = descriptor.name;
         var visibleName:String = PropertyEditorUtil.getLocalizedString(content.getType().getName(), fieldName, 'text', fieldName);
 
-        var attr:Object = { attributes: {
-          'class': fieldName,
-          'data-visibleName': visibleName
-        }};
+        var attr:Object = {
+          attributes: {
+            'class': fieldName,
+            'data-visibleName': visibleName
+          }
+        };
 
         if (field && field.xtype && field.rendered) {
           if (field.xtype === CoreMediaRichTextArea.xtype) {
-            var richtextId:String = field.getCKEditor().element.getId();
+            var ckEditorInstance:Object = field.getCKEditor();
+            var richtextId:String = ckEditorInstance.element.getId();
             multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.CKEditorAdapter({editorId: richtextId}), attr);
-          }
-          else if (field.xtype == StatefulTextField.xtype) {
+          } else if (field.xtype == StatefulTextField.xtype) {
             var fieldId:String = field.getInputId();
             multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: fieldId}), attr);
-          }
-          else if (field.xtype == TeaserOverlayPropertyField.xtype) {
+          } else if (field.xtype == TeaserOverlayPropertyField.xtype) {
             var overlayId:String = field.getInputId();
             multiAdapter.addSingleAdapter(new window.acrolinx.plugins.adapter.InputAdapter({editorId: overlayId}), attr);
-          }
-          else {
+          } else {
             trace('[INFO]', 'Acrolinx integration found no suitable editor for property "' + propertyName + '"');
           }
         }
@@ -201,6 +215,11 @@ public class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   private function getDocumentRef():String {
     var content:Content = contentExpression.getValue();
     return remoteControlHandlerRegistry.createRemoteControlUrl(content);
+  }
+
+  override protected function onDestroy():void {
+    this.multiAdapter.removeAllAdapters();
+    super.onDestroy();
   }
 }
 }
