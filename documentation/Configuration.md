@@ -10,8 +10,7 @@ put in a global or site-specific folders.
 ## General Settings
 
 The adapter settings can be configured on a global or site specific level. The following
-XML shows an example configuration. If you don't know how to get your client signature,
-please visit https://www.acrolinx.com/ for more detailed instructions.
+XML shows an example configuration.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -29,7 +28,6 @@ please visit https://www.acrolinx.com/ for more detailed instructions.
       <StructProperty Name="settings">
         <Struct>
           <StringProperty Name="serverAddress">YOUR_SERVER_ADDRESS_WITHOUT_PROTOCOL</StringProperty>
-          <StringProperty Name="clientSignature">YOUR_CLIENT_SIGNATURE</StringProperty>
           <StringProperty Name="accessToken">YOUR_ACCESS_TOKEN</StringProperty>
           <StringProperty Name="propertyNames">detailText</StringProperty>
           <StructProperty Name="profileMapping">
@@ -61,9 +59,9 @@ Every _settings_ sub-struct contains the following properties:
 | propertyNames     | The text based content properties to analyse, invalid ones are ignored. |
 | profileMapping    | Defines a mapping from CoreMedia sites to Acrolinx guidance profiles. |
 
-The _clientSignature_ property doesn't have to be necessarily configured within the settings document.
-If you don't want this value to be visible in content, you can set it also in the _configuration.properties_
-inside the _resources_ folder of the _studio-server_m module.
+The _accessToken_ property doesn't have to be necessarily configured within the settings document.
+It is used to retrieve the list of guidance profiles from Acrolinx to allow a predefined mapping from CoreMedia sites
+to these profiles (see next section).
 
 #### Acrolinx Guidance Profiles
 
