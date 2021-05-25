@@ -54,7 +54,6 @@ Every _settings_ sub-struct contains the following properties:
 | Property          | Description   |
 | ----------------- | ------------- |
 | serverAddress     | The Acrolinx server to work on, without 'https' prefix. |
-| clientSignature   | The client signature used for API authentication. |
 | accessToken       | The access token, can be retrieved through the Acrolinx dashboard. |
 | propertyNames     | The text based content properties to analyse, invalid ones are ignored. |
 | profileMapping    | Defines a mapping from CoreMedia sites to Acrolinx guidance profiles. |
