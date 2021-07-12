@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jangaroo.version>4.0.77</jangaroo.version>
+    <jangaroo.version>4.1.0</jangaroo.version>
     <cms.version>2104.1</cms.version>
     <!-- mvn jangaroo:run configuration: -->
     <!-- Proxy everything to a running Studio (except the locally developed package) -->
@@ -54,6 +54,35 @@
       <artifactId>editor-components</artifactId>
       <type>swc</type>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>studio-client.cap-base-models</artifactId>
+      <version>${cms.version}</version>
+      <type>swc</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.ui.toolkit</groupId>
+      <artifactId>client-core</artifactId>
+      <version>${cms.version}</version>
+      <type>swc</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.ui.toolkit</groupId>
+      <artifactId>core-icons</artifactId>
+      <version>${cms.version}</version>
+      <type>swc</type>
+    </dependency>
+
+
+    <dependency>
+      <groupId>com.coremedia.ui.sdk</groupId>
+      <artifactId>cap-rest-client</artifactId>
+      <version>${cms.version}</version>
+      <type>swc</type>
     </dependency>
 
     <dependency>
