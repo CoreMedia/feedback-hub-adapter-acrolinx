@@ -121,6 +121,8 @@
         <version>${jangaroo.version}</version>
         <extensions>true</extensions>
         <configuration>
+          <extNamespace>com.coremedia.labs.plugins.feedbackhub.acrolinx</extNamespace>
+          <skip>false</skip>
           <namespaces>
             <namespace>
               <uri>exml:com.coremedia.labs.plugins.feedbackhub.acrolinx</uri>

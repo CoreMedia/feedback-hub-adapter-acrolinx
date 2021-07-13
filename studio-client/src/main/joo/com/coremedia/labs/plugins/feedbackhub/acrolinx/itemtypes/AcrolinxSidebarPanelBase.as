@@ -15,8 +15,6 @@ import com.coremedia.cms.studio.feedbackhub.components.itempanels.FeedbackItemPa
 import com.coremedia.labs.plugins.feedbackhub.acrolinx.AcrolinxAdapterCustomizer;
 import com.coremedia.ui.components.StatefulTextField;
 
-import ext.Ext;
-
 import ext.window.Window;
 
 /**

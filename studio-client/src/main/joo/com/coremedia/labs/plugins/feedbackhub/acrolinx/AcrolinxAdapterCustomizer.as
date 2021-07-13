@@ -1,8 +1,6 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx {
-import com.coremedia.cap.content.ContentPropertyNames;
 import com.coremedia.cms.editor.sdk.editorContext;
 import com.coremedia.cms.editor.sdk.premular.Premular;
-import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 
