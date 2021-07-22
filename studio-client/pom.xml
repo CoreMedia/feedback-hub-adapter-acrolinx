@@ -13,7 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jangaroo.version>4.1.0</jangaroo.version>
-    <cms.version>2104.1</cms.version>
+    <cms.version>2107.1</cms.version>
     <!-- mvn jangaroo:run configuration: -->
     <!-- Proxy everything to a running Studio (except the locally developed package) -->
     <jooProxyPathSpec>/*</jooProxyPathSpec>
@@ -121,13 +121,13 @@
         <version>${jangaroo.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <extNamespace>com.coremedia.labs.plugins.feedbackhub.acrolinx</extNamespace>
           <skip>false</skip>
           <namespaces>
             <namespace>
-              <uri>exml:com.coremedia.labs.plugins.feedbackhub.acrolinx</uri>
+              <uri>exml:com.coremedia.labs.plugins.feedbackhub.acrolinx.config</uri>
             </namespace>
           </namespaces>
+          <extNamespace>com.coremedia.labs.plugins.feedbackhub.acrolinx</extNamespace>
           <jooProxyPathSpec>${jooProxyPathSpec}</jooProxyPathSpec>
           <jooProxyTargetUri>${jooProxyTargetUri}</jooProxyTargetUri>
         </configuration>
