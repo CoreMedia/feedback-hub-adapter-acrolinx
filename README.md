@@ -31,15 +31,15 @@ if your CoreMedia version is 2104.1, checkout the branch 2104.1.
 
 ## Project Setup
 
-For Configuration Details see section **[Configuration](documentation/Configuration.md)**.
+For Configuration Details see section **[Configuration](docs/README.md)**.
 
 #### Screenshots
 
-![Feedback Rendering](documentation/acrolinx_1.png "Acrolinx Feedback")
+![Feedback Rendering](docs/images/acrolinx_1.png "Acrolinx Feedback")
 
 The Acrolinx Sidebar
 
-![Feedback Rendering](documentation/acrolinx_2.png "Acrolinx Feedback")
+![Feedback Rendering](docs/images/acrolinx_2.png "Acrolinx Feedback")
 
 Feedback for CoreMedia richtext.
 
