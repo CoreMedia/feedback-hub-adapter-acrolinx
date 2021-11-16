@@ -47,7 +47,7 @@ importers:
       '@coremedia/studio-client.main.ckeditor4-components': 2110.1.0-pr3
       '@coremedia/studio-client.main.editor-components': 2110.1.0-pr3
       '@coremedia/studio-client.main.feedback-hub-editor-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     devDependencies:
       '@jangaroo/build': 1.0.0-alpha.32
@@ -1386,7 +1386,7 @@ packages:
       '@coremedia/studio-client.client-core-impl': 2110.1.0-pr3
       '@coremedia/studio-client.ext.startup-plugins': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1405,7 +1405,7 @@ packages:
       '@coremedia/studio-client.ext.interaction-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.multi-site-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1418,7 +1418,7 @@ packages:
       '@coremedia/studio-client.ext.link-list-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.multi-site-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1432,7 +1432,7 @@ packages:
       '@coremedia/studio-client.core-icons': 2110.1.0-pr3
       '@coremedia/studio-client.ext.cap-base-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1448,7 +1448,7 @@ packages:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.form-models': 2110.1.0-pr3
       '@coremedia/studio-client.form-services-api': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
     dev: false
@@ -1474,7 +1474,7 @@ packages:
       '@coremedia/studio-client.ext.toast-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.multi-site-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
     dev: false
@@ -1490,7 +1490,7 @@ packages:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.interaction-services-api': 2110.1.0-pr3
       '@coremedia/studio-client.interaction-services-impl': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
     dev: false
@@ -1506,7 +1506,7 @@ packages:
       '@coremedia/studio-client.ext.startup-plugins': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.library-services-api': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1522,7 +1522,7 @@ packages:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.interaction-services-api': 2110.1.0-pr3
       '@coremedia/studio-client.link-list-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
     dev: false
@@ -1535,7 +1535,7 @@ packages:
       '@coremedia/studio-client.ext.base-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.errors-validation-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1543,7 +1543,7 @@ packages:
     resolution: {integrity: sha512-38kjYSOm7LIqEaQqHXJ0On/JmP1Pr7O9sNQ/GFdAeBPaWk9P3MVK1l44BVOy3j5eLIvrC4QfPx7fCrZvwt2ROQ==}
     dependencies:
       '@coremedia/studio-client.client-core': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       '@lottiefiles/lottie-player': 1.4.4
     dev: false
@@ -1558,7 +1558,7 @@ packages:
       '@coremedia/studio-client.ext.frame-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.multi-site-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1567,7 +1567,7 @@ packages:
     dependencies:
       '@coremedia/studio-client.core-icons': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1588,7 +1588,7 @@ packages:
       '@coremedia/studio-client.ext.lottie-components': 2110.1.0-pr3
       '@coremedia/studio-client.ext.startup-plugins': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1596,7 +1596,7 @@ packages:
     resolution: {integrity: sha512-5t8ByaxzZf9tH2AT0yLKvmXe39wPALD3TvDruF1WaF0ILweanWNTVfsGYv6SjPWJGT5UXyITn6VwIxCYR79X/Q==}
     dependencies:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1608,7 +1608,7 @@ packages:
       '@coremedia/studio-client.client-core-impl': 2110.1.0-pr3
       '@coremedia/studio-client.core-icons': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1620,7 +1620,7 @@ packages:
       '@coremedia/studio-client.client-core': 2110.1.0-pr3
       '@coremedia/studio-client.client-core-impl': 2110.1.0-pr3
       '@coremedia/studio-client.core-icons': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/jangaroo-net': 1.0.0-alpha.32
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
@@ -1658,7 +1658,7 @@ packages:
       '@coremedia/studio-client.workflow-models': 2110.1.0-pr3
       '@coremedia/studio-client.workflow-plugin-models': 2110.1.0-pr3
       '@coremedia/studio-client.workflow-services-api': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
     dev: false
@@ -1671,7 +1671,7 @@ packages:
       '@coremedia/studio-client.client-core': 2110.1.0-pr3
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.workflow-services-api': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
 
@@ -1750,7 +1750,7 @@ packages:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.main.editor-components': 2110.1.0-pr3
       '@jangaroo/ckeditor4': 1.0.0-alpha.5
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/jangaroo-net': 1.0.0-alpha.32
       '@jangaroo/runtime': 1.0.0-alpha.32
     dev: false
@@ -1796,7 +1796,7 @@ packages:
       '@coremedia/studio-client.link-list-models': 2110.1.0-pr3
       '@coremedia/studio-client.multi-site-models': 2110.1.0-pr3
       '@coremedia/studio-client.workflow-services-api': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/jangaroo-net': 1.0.0-alpha.32
       '@jangaroo/runtime': 1.0.0-alpha.32
       rxjs: 6.6.7
@@ -1822,7 +1822,7 @@ packages:
       '@coremedia/studio-client.main.editor-components': 2110.1.0-pr3
       '@coremedia/studio-client.main.notification-studio-client': 2110.1.0-pr3
       '@coremedia/studio-client.notification-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       moment: 2.27.0
     dev: false
@@ -1840,7 +1840,7 @@ packages:
       '@coremedia/studio-client.ext.ui-components': 2110.1.0-pr3
       '@coremedia/studio-client.main.editor-components': 2110.1.0-pr3
       '@coremedia/studio-client.notification-models': 2110.1.0-pr3
-      '@jangaroo/ext-ts': 1.0.0-beta.1
+      '@jangaroo/ext-ts': 1.0.0-alpha.17
       '@jangaroo/runtime': 1.0.0-alpha.32
       moment: 2.27.0
     dev: false
@@ -2020,8 +2020,8 @@ packages:
       - supports-color
     dev: true
 
-  /@jangaroo/ext-ts/1.0.0-beta.1:
-    resolution: {integrity: sha512-9iOKIkvbpWfzsjpqlLO+M17wH7FnC70ICWBJPWFBWEBeYHhJURXuX6f4neqACQ4n9UHWamuN3MTV6ljogZsDrw==}
+  /@jangaroo/ext-ts/1.0.0-alpha.17:
+    resolution: {integrity: sha512-wDdtvNnKWUlq02JXICzW60wn04/XPMtbttnOo3AmRmWT7uka65ESplNahaygtD2snIjMuOtaHGcdLBccdhcuNQ==}
     engines: {node: '>=16'}
     dependencies:
       '@jangaroo/runtime': 1.0.0-alpha.32
