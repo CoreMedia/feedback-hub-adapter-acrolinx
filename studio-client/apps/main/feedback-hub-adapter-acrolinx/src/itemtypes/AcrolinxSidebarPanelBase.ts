@@ -3,18 +3,17 @@ import session from "@coremedia/studio-client.cap-rest-client/common/session";
 import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
 import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
 import StatefulTextField from "@coremedia/studio-client.ext.ui-components/components/StatefulTextField";
-import CoreMediaRichTextArea from "@coremedia/studio-client.main.editor-components/sdk/components/CoreMediaRichTextArea";
 import editorContext from "@coremedia/studio-client.main.editor-components/sdk/editorContext";
 import IPropertyFieldRegistry from "@coremedia/studio-client.main.editor-components/sdk/premular/IPropertyFieldRegistry";
 import PremularBase from "@coremedia/studio-client.main.editor-components/sdk/premular/PremularBase";
-import TeaserOverlayPropertyField from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/teaser/TeaserOverlayPropertyField";
 import remoteControlHandlerRegistry from "@coremedia/studio-client.main.editor-components/sdk/remotecontrol/remoteControlHandlerRegistry";
 import PropertyEditorUtil from "@coremedia/studio-client.main.editor-components/sdk/util/PropertyEditorUtil";
 import FeedbackItemPanel from "@coremedia/studio-client.main.feedback-hub-editor-components/components/itempanels/FeedbackItemPanel";
+import CoreMediaRichTextArea from "@coremedia/studio-client.main.ckeditor4-components/CoreMediaRichTextArea";
+import TeaserOverlayPropertyField from "@coremedia/studio-client.main.ckeditor4-components/fields/TeaserOverlayPropertyField";
 import Window from "@jangaroo/ext-ts/window/Window";
 import { as, asConfig, bind, is } from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
-import trace from "@jangaroo/runtime/trace";
 import AcrolinxAdapterCustomizer from "../AcrolinxAdapterCustomizer";
 import AcrolinxSidebarCustomizer from "./AcrolinxSidebarCustomizer";
 import AcrolinxSidebarPanel from "./AcrolinxSidebarPanel";
@@ -57,10 +56,12 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
    * @param parent the Feedback Window
    */
   #adaptHeight(parent: Window): void {
-    this.setHeight(asConfig(parent).height - 160);
+    const height = parseInt(""+asConfig(parent).height);
+    const width = parseInt(""+asConfig(parent).width);
+    this.setHeight(height- 160);
     const target = this.#getTargetElement();
     if (target) {
-      target.setAttribute("style", "height:" + (asConfig(parent).height - 166) + "px;width:" + (asConfig(parent).width - 24) + "px;background-color:#FFF;");
+      target.setAttribute("style", "height:" + (height - 166) + "px;width:" + (width - 24) + "px;background-color:#FFF;");
     }
   }
 
@@ -95,7 +96,7 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
     //checker settings, we ignore options when there is a guidance profile mapping available
     let checkSettings: any = null;
     if (profileId) {
-      trace("[INFO]", "Found Acrolinx guidance profile \"" + profileId + "\", ignoring options.");
+      console.log("[INFO]", "Found Acrolinx guidance profile \"" + profileId + "\", ignoring options.");
       uiMode = "noOptions";
       checkSettings = { "profileId": profileId };
     }
@@ -194,7 +195,7 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
             const overlayId: string = field.getInputId();
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: overlayId }), attr);
           } else {
-            trace("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
+            console.log("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
           }
         }
       }

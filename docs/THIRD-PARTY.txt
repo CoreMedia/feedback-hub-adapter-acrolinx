@@ -1,0 +1,9 @@
+
+Lists of 7 third-party dependencies.
+     (The Apache Software License, Version 2.0) Acrolinx Platform SDK (com.acrolinx.client:sdk:1.0.12 - https://github.com/acrolinx/sdk-java)
+     (GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1) SpotBugs Annotations (com.github.spotbugs:spotbugs-annotations:3.1.5 - https://spotbugs.github.io/)
+     (Eclipse Public License 1.0) JUnit (junit:junit:4.13.1 - http://junit.org)
+     (Apache License, Version 2.0) Apache Commons Lang (org.apache.commons:commons-lang3:3.10 - https://commons.apache.org/proper/commons-lang/)
+     (MIT License) SLF4J API Module (org.slf4j:slf4j-api:1.7.32 - http://www.slf4j.org)
+     (Apache License, Version 2.0) Spring Context (org.springframework:spring-context:5.3.12 - https://github.com/spring-projects/spring-framework)
+     (Apache License, Version 2.0) Spring Web (org.springframework:spring-web:5.3.12 - https://github.com/spring-projects/spring-framework)

@@ -1,7 +1,7 @@
 ![CoreMedia Labs Logo](https://documentation.coremedia.com/badges/banner_coremedia_labs_wide.png "CoreMedia Labs Logo")
 
-![CoreMedia Content Cloud Version](https://img.shields.io/static/v1?message=2107&label=CoreMedia%20Content%20Cloud&style=for-the-badge&labelColor=666666&color=672779 
-"This badge shows the CoreMedia version this project is compatible with. 
+![CoreMedia Content Cloud Version](https://img.shields.io/static/v1?message=2110&label=CoreMedia%20Content%20Cloud&style=for-the-badge&labelColor=666666&color=672779 
+"This badge shows the CoreMedia version(s) this project is compatible with. 
 Please read the versioning section of the project to see what other CoreMedia versions are supported and how to find them."
 )
 ![Status](https://img.shields.io/static/v1?message=active&label=Status&style=for-the-badge&labelColor=666666&color=2FAC66 
@@ -10,42 +10,36 @@ If a project is inactive it means that the development has been discontinued and
 )
 
 
-# Acrolinx Adapter for Feedback Hub 
-
-## Overview 
+# Feedback Hub Adapter for Acrolinx
 
 This is an integration for the SEO and content marketing platform __Acrolinx__ (https://www.acrolinx.com/).
-
-The Feedback Hub Adapter 'Acrolinx' is implemented as a Blueprint extension.
 
 We usually only work on the latest CoreMedia version, so the latest version of the documentation and demo content 
 may be on the latest version branch.
 
 ## Versioning
 
-To find out which CoreMedia version is supported by this project, 
-please take look at the releases section or on the existing branches. 
-To find the matching version of your CoreMedia system, please checkout the branch 
-with the corresponding name. For example, 
-if your CoreMedia version is 2104.1, checkout the branch 2104.1.
+The master branch of this project is suitable for CoreMedia versions since 2107.
+It is based on the plugin architecture.
 
-## Project Setup
+For older CoreMedia versions there are branches with corresponding names.
+For example, if your CoreMedia version is 2107.2, checkout the branch cmcc-10-2107.2-<LATEST>.
+These older versions are based on the extensions architecture, because plugins
+are available only since 2101.
 
-For Configuration Details see section **[Configuration](docs/README.md)**.
+## Documentation & Tutorial
 
-#### Screenshots
+* **[Documentation](docs/README.md)**
 
-![Feedback Rendering](docs/images/acrolinx_1.png "Acrolinx Feedback")
+  for guides for editors, administrators and developers
 
-The Acrolinx Sidebar
+* **[Changelog](CHANGELOG.md)**
 
-![Feedback Rendering](docs/images/acrolinx_2.png "Acrolinx Feedback")
+  for recent changes
 
-Feedback for CoreMedia richtext.
+* **[Issues](https://github.com/CoreMedia/feedback-hub-adapter-acrolinx/issues)**
 
-#### Issue Tracker
-
-https://github.com/CoreMedia/feedback-hub-adapter-acrolinx/issues
+  for known bugs and feature requests
 
 ## CoreMedia Labs
 
@@ -56,7 +50,7 @@ CoreMedia. Whatever your experience level with CoreMedia is, we've got something
 for you.
 
 Each project in our Labs platform is an extra feature to be used with CoreMedia,
-including extensions, plugins, tools and 3rd party integrations. We provide some test
+including plugins, extensions, tools and 3rd party integrations. We provide some test
 data and explanatory videos for non-customers and for insiders there is
 open-source code and instructions on integrating the feature into your
 CoreMedia workspace. 
