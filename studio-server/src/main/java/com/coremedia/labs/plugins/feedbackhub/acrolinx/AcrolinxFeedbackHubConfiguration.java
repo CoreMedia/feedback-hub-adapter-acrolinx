@@ -19,8 +19,8 @@ import java.util.Properties;
 public class AcrolinxFeedbackHubConfiguration {
   private static final Logger LOG = LoggerFactory.getLogger(AcrolinxFeedbackHubConfiguration.class);
 
-  private String signature;
   private String studioVersion;
+  private String acrolinxServer;
 
   public AcrolinxFeedbackHubConfiguration() {
     loadPropertiesSet();
@@ -28,12 +28,17 @@ public class AcrolinxFeedbackHubConfiguration {
 
   @Bean
   public AcrolinxService acrolinxService(@NonNull SitesService sitesService) {
-    return new AcrolinxService(sitesService, signature, studioVersion);
+    return new AcrolinxService(sitesService, studioVersion);
+  }
+
+  @Bean
+  public AcrolinxCSPSettings acrolinxCSPSettings() {
+    return new AcrolinxCSPSettings(acrolinxServer);
   }
 
   @Bean
   public AcrolinxFeedbackProviderFactory acrolinxContentFeedbackProviderFactory(@NonNull AcrolinxService acrolinxService) {
-    return new AcrolinxFeedbackProviderFactory(acrolinxService, signature);
+    return new AcrolinxFeedbackProviderFactory(acrolinxService);
   }
 
   //TODO this will be replaced in a future version with Spring properties, not yet provided by plugins
@@ -48,9 +53,9 @@ public class AcrolinxFeedbackHubConfiguration {
 
       //load a properties file from class path, inside static method
       prop.load(input);
-      signature = prop.getProperty("acrolinx.signature");
+      acrolinxServer = prop.getProperty("acrolinx.server");
 
-      if (!StringUtils.isEmpty(signature)) {
+      if (!StringUtils.isEmpty(acrolinxServer)) {
         LOG.info("Successfully loaded Acrolinx settings.");
       }
 

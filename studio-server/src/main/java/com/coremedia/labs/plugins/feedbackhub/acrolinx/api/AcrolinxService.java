@@ -25,11 +25,9 @@ public class AcrolinxService {
 
   private final Cache cache;
   private final SitesService sitesService;
-  private final String clientSignature;
   private final String studioVersion;
 
-  public AcrolinxService(SitesService sitesService, String clientSignature, String studioVersion) {
-    this.clientSignature = clientSignature;
+  public AcrolinxService(SitesService sitesService, String studioVersion) {
     this.studioVersion = studioVersion;
     this.cache = new Cache(ACROLINX_CACHE);
     this.cache.setCapacity(Object.class.getName(), 20);
@@ -115,9 +113,6 @@ public class AcrolinxService {
   }
 
   public String getClientSignature(AcrolinxSettings settings) {
-    if (!StringUtils.isEmpty(clientSignature)) {
-      return clientSignature;
-    }
     return settings.getClientSignature();
   }
 
