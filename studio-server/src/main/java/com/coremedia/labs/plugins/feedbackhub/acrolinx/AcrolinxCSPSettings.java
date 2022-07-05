@@ -59,6 +59,11 @@ public class AcrolinxCSPSettings implements CSPSettings {
   }
 
   @Override
+  public List<String> getChildSrc() {
+    return CSPSettings.super.getChildSrc();
+  }
+
+  @Override
   public List<String> getReportUri() {
     return CSPSettings.super.getReportUri();
   }
