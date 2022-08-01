@@ -55,7 +55,7 @@ jobs:
         env:
           NPM_CONFIG_@coremedia:registry: 'https://npm.coremedia.io'
           NPM_CONFIG_@jangaroo:registry: 'https://npm.coremedia.io'
-        run: pnpm install
+        run: pnpm config set auto-install-peers true && pnpm install --no-frozen-lockfile
 
       - name: Set Release Version
         id: set-release-version
