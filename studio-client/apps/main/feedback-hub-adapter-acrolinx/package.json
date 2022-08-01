@@ -17,10 +17,10 @@
     "@jangaroo/runtime": "^1.0.3"
   },
   "devDependencies": {
-    "@jangaroo/build": "^1.0.0-alpha",
-    "@jangaroo/core": "^1.0.0-alpha",
-    "@jangaroo/publish": "^1.0.0-alpha",
-    "@jangaroo/run": "^1.0.0-alpha",
+    "@jangaroo/build": "^1.1.3",
+    "@jangaroo/core": "^1.1.3",
+    "@jangaroo/publish": "^1.1.3",
+    "@jangaroo/run": "^1.1.3",
     "eslint": "7.27.0",
     "rimraf": "^3.0.2"
   },
