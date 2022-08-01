@@ -1,6 +1,6 @@
 package com.coremedia.labs.plugins.feedbackhub.acrolinx;
 
-import com.coremedia.rest.security.util.CSPSettings;
+import com.coremedia.rest.security.csp.CSPSettings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +30,7 @@ public class AcrolinxCSPSettings implements CSPSettings {
 
   @Override
   public List<String> getConnectSrc() {
-    return Arrays.asList("'self'","https://" + acrolinxServer + "/");
+    return Arrays.asList("'self'", "https://" + acrolinxServer + "/");
   }
 
   @Override
