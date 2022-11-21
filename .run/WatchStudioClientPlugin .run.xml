@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Watch Studio Client " type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/studio-client/apps/main/feedback-hub-adapter-acrolinx/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="watch" />
+    </scripts>
+    <arguments value="-- --recursive --skipInitialBuild" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

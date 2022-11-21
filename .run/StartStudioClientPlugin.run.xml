@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start Studio Plugin" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/studio-client/apps/main/feedback-hub-adapter-acrolinx/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="start" />
+    </scripts>
+    <arguments value="--proxyTargetUri=http://localhost:3000" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
