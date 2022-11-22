@@ -32,6 +32,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.1.5
+
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
