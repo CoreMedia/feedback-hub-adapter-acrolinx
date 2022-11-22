@@ -36,25 +36,25 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
+          cache: 'pnpm'
+          cache-dependency-path: "studio-client/pnpm-lock.yaml"
 
-      - name: Setup PNPM
+      - name: Setup npm.coremedia.io
         run: |
           NPM_AUTH_TOKEN=$(curl -s -H "Accept: application/json" -H "Content-Type:application/json" -X PUT --data '{"name": "${{ secrets.CM_NPM_USER }}", "password": "${{ secrets.CM_NPM_READ_ONLY_PASSWORD }}"}' https://npm.coremedia.io/-/user/org.couchdb.user:${{ secrets.CM_NPM_USER }} | jq -r .token)
           echo "::add-mask::$NPM_AUTH_TOKEN"
-          echo "NPM_CONFIG_//npm.coremedia.io/:_authToken=$NPM_AUTH_TOKEN" >> $GITHUB_ENV
-          npm install -g pnpm@latest
+          pnpm config set //npm.coremedia.io/:_authToken=$NPM_AUTH_TOKEN
+          pnpm config set @coremedia:registry=https://npm.coremedia.io
+          pnpm config set @jangaroo:registry=https://npm.coremedia.io
 
       - name: Setup Git
-        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
         run: |
           git config --global user.name 'coremedia-ci'
           git config --global user.email 'coremedia-ci@coremedia.com'
 
       - name: Install PNPM Dependencies
         working-directory: studio-client
-        env:
-          NPM_CONFIG_@coremedia:registry: 'https://npm.coremedia.io'
-          NPM_CONFIG_@jangaroo:registry: 'https://npm.coremedia.io'
         run: pnpm install
 
       - name: Set Release Version
@@ -97,7 +97,20 @@ jobs:
         env:
           PLUGINS_NEXUS_USER: ${{ secrets.PLUGINS_NEXUS_USER }}
           PLUGINS_NEXUS_PASSWORD: ${{ secrets.PLUGINS_NEXUS_PASSWORD }}
-        run: mvn --batch-mode --update-snapshots verify
+        run: mvn --batch-mode --update-snapshots install
+
+      - name: Update license info
+        if: github.event_name == 'pull_request'
+        env:
+          PLUGINS_NEXUS_USER: ${{ secrets.PLUGINS_NEXUS_USER }}
+          PLUGINS_NEXUS_PASSWORD: ${{ secrets.PLUGINS_NEXUS_PASSWORD }}
+        run: |
+          mvn --batch-mode -Pdocs-third-party generate-resources
+          if [ -n "$(git status --porcelain documentation)" ]; then
+            git add documentation
+            git commit -m "update license information"
+            git push
+          fi
 
       - name: Create Bundle
         env:
@@ -146,7 +159,7 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Bundle
+          name: feedback-hub-adapter-acrolinx-${{ steps.output-version.outputs.version }}
           path: target/bundle
           if-no-files-found: error
 
