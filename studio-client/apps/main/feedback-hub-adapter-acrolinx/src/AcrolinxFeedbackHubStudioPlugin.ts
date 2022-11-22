@@ -16,14 +16,12 @@ class AcrolinxFeedbackHubStudioPlugin extends AcrolinxFeedbackHubStudioPluginBas
 
   constructor(config: Config<AcrolinxFeedbackHubStudioPlugin> = null) {
     super(ConfigUtils.apply(Config(AcrolinxFeedbackHubStudioPlugin, {
-
       configuration: [
         new CopyResourceBundleProperties({
           destination: resourceManager.getResourceBundle(null, FeedbackHub_properties),
           source: resourceManager.getResourceBundle(null, FeedbackHubAcrolinx_properties),
         }),
       ],
-
     }), config));
   }
 }

@@ -1,9 +1,10 @@
-/** @type { import('@jangaroo/core').IJangarooConfig } */
+const { jangarooConfig } = require("@jangaroo/core");
+
 module.exports = {
   type: "code",
-  extName: "com.coremedia.labs.plugins__studio-client.feedback-hub-adapter-acrolinx",
-  extNamespace: "com.coremedia.labs.plugins.feedbackhub.acrolinx",
   sencha: {
+    name: "com.coremedia.labs.plugins__studio-client.feedback-hub-adapter-acrolinx",
+    namespace: "com.coremedia.labs.plugins.feedbackhub.acrolinx",
     studioPlugins: [
       {
         mainClass: "com.coremedia.labs.plugins.feedbackhub.acrolinx.AcrolinxFeedbackHubStudioPlugin",
