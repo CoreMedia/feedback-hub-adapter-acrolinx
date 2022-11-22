@@ -9,8 +9,6 @@ import PremularBase from "@coremedia/studio-client.main.editor-components/sdk/pr
 import remoteControlHandlerRegistry from "@coremedia/studio-client.main.editor-components/sdk/remotecontrol/remoteControlHandlerRegistry";
 import PropertyEditorUtil from "@coremedia/studio-client.main.editor-components/sdk/util/PropertyEditorUtil";
 import FeedbackItemPanel from "@coremedia/studio-client.main.feedback-hub-editor-components/components/itempanels/FeedbackItemPanel";
-import CoreMediaRichTextArea from "@coremedia/studio-client.main.ckeditor4-components/CoreMediaRichTextArea";
-import TeaserOverlayPropertyField from "@coremedia/studio-client.main.ckeditor4-components/fields/TeaserOverlayPropertyField";
 import Window from "@jangaroo/ext-ts/window/Window";
 import { as, asConfig, bind, is } from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
@@ -184,16 +182,16 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         };
 
         if (field && field.xtype && field.rendered) {
-          if (field.xtype === CoreMediaRichTextArea.xtype) {
-            const ckEditorInstance: any = field.getCKEditor();
-            const richtextId: string = ckEditorInstance.element.getId();
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditorAdapter({ editorId: richtextId }), attr);
+          if (field.xtype === "com.coremedia.cms.editor.sdk.config.ckeditor5.richTextArea") {
+            //we want the actual editable div here which has no id yet!
+            let ckEditorElement: any = field.el.dom.querySelector('.ck-editor__editable');
+            const id = "data-ckEditorInstance-" + field.getId();
+            ckEditorElement.setAttribute("id", id);
+            //const ckEditor = ckEditorElement.ckeditorInstance; //just to let you know
+            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
           } else if (field.xtype == StatefulTextField.xtype) {
             const fieldId: string = field.getInputId();
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
-          } else if (field.xtype == TeaserOverlayPropertyField.xtype) {
-            const overlayId: string = field.getInputId();
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: overlayId }), attr);
           } else {
             console.log("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
           }

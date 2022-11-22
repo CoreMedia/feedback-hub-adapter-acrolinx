@@ -21,6 +21,7 @@ public class AcrolinxFeedbackHubConfiguration {
 
   private String signature;
   private String studioVersion;
+  private String serverAddresss;
 
   public AcrolinxFeedbackHubConfiguration() {
     loadPropertiesSet();
@@ -29,6 +30,11 @@ public class AcrolinxFeedbackHubConfiguration {
   @Bean
   public AcrolinxService acrolinxService(@NonNull SitesService sitesService) {
     return new AcrolinxService(sitesService, signature, studioVersion);
+  }
+
+  @Bean
+  public AcrolinxCSPSettings acrolinxCSPSettings() {
+    return new AcrolinxCSPSettings(serverAddresss);
   }
 
   @Bean
@@ -49,9 +55,13 @@ public class AcrolinxFeedbackHubConfiguration {
       //load a properties file from class path, inside static method
       prop.load(input);
       signature = prop.getProperty("acrolinx.signature");
+      serverAddresss = prop.getProperty("acrolinx.serverAddress");
 
-      if (!StringUtils.isEmpty(signature)) {
+      if (!StringUtils.isEmpty(signature) && !StringUtils.isEmpty(serverAddresss)) {
         LOG.info("Successfully loaded Acrolinx settings.");
+      }
+      else {
+        LOG.warn("Signature or server address not configured for Acrolinx.");
       }
 
       studioVersion = prop.getProperty("studio.version");

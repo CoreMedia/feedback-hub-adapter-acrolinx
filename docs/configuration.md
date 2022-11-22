@@ -25,11 +25,13 @@ XML shows an example configuration.
       <StringProperty Name="contentTypes">CMArticle</StringProperty>
       <StringProperty Name="reloadMode">none</StringProperty>
       <BooleanProperty Name="enabled">true</BooleanProperty>
+      <StringProperty Name="observedProperties">detailText</StringProperty>
       <StructProperty Name="settings">
         <Struct>
           <StringProperty Name="serverAddress">YOUR_SERVER_ADDRESS_WITHOUT_PROTOCOL</StringProperty>
+          <StringProperty Name="clientSignature">YOUR_SIGNATURE</StringProperty>
           <StringProperty Name="accessToken">YOUR_ACCESS_TOKEN</StringProperty>
-          <StringProperty Name="propertyNames">detailText</StringProperty>
+          <StringProperty Name="propertyNames">title,detailText,teaserText</StringProperty>
           <StructProperty Name="profileMapping">
             <Struct>
               <StringProperty Name="abffe57734feeee">en-Marketing US</StringProperty>

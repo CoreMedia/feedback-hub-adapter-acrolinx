@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AcrolinxCSPSettings implements CSPSettings {
 
-  private final String acrolinxServer;
+  private String acrolinxServer;
 
   AcrolinxCSPSettings(String acrolinxServer) {
     this.acrolinxServer = acrolinxServer;
@@ -15,7 +15,14 @@ public class AcrolinxCSPSettings implements CSPSettings {
 
   @Override
   public List<String> getScriptSrc() {
-    return Arrays.asList("'unsafe-eval'", "'unsafe-inline'", "'self'", "data:", "http:", "https:", "https://unpkg.com/");
+    return Arrays.asList("'unsafe-eval'", "'self'", "data:", "http:", "https:",
+            "app.eu.pendo.io",
+            "pendo-eu-static.storage.googleapis.com",
+            "cdn.eu.pendo.io",
+            "pendo-eu-static-5227652489019392.storage.googleapis.com",
+            "data.eu.pendo.io",
+            "'sha256-uvjFzlIG+c9vTvlPjd4XprgNwAHtbxCBrl7kg8AOP3A='",
+            "'sha256-czdU7T58bnMmn54YmKphBkPUShRlMF5Naf66fSAEVF8='");
   }
 
   @Override
