@@ -39,12 +39,13 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Setup PNPM
+      - name: Setup npm.coremedia.io
         run: |
           NPM_AUTH_TOKEN=$(curl -s -H "Accept: application/json" -H "Content-Type:application/json" -X PUT --data '{"name": "${{ secrets.CM_NPM_USER }}", "password": "${{ secrets.CM_NPM_READ_ONLY_PASSWORD }}"}' https://npm.coremedia.io/-/user/org.couchdb.user:${{ secrets.CM_NPM_USER }} | jq -r .token)
           echo "::add-mask::$NPM_AUTH_TOKEN"
-          echo "NPM_CONFIG_//npm.coremedia.io/:_authToken=$NPM_AUTH_TOKEN" >> $GITHUB_ENV
-          npm install -g pnpm@latest
+          pnpm config set //npm.coremedia.io/:_authToken=$NPM_AUTH_TOKEN
+          pnpm config set @coremedia:registry=https://npm.coremedia.io
+          pnpm config set @jangaroo:registry=https://npm.coremedia.io
 
       - name: Setup Git
         if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
