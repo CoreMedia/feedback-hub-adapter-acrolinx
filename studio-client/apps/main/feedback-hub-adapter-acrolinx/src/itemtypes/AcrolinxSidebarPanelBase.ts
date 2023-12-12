@@ -184,12 +184,10 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         if (field && field.xtype && field.rendered) {
           if (field.xtype === "com.coremedia.cms.editor.sdk.config.ckeditor5.richTextArea") {
             //we want the actual editable div here which has no id yet!
-            let ckEditorElement: any = field.el.dom.querySelector('.ck-editor__editable');
-            const id = "data-ckEditorInstance-" + field.getId();
-            ckEditorElement.setAttribute("id", id);
-            //const ckEditor = ckEditorElement.ckeditorInstance; //just to let you know
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
-            // this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditor5Adapter({ editorId: id }), attr);
+            const ckEditorElement: any = field.el.dom.querySelector(".ck-editor__editable");
+            const id = "cke_" + field.getId();
+            // this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
+            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditor5Adapter({ editorId: id }), attr);
           } else if (field.xtype == StatefulTextField.xtype) {
             const fieldId: string = field.getInputId();
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
