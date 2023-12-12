@@ -189,6 +189,7 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
             ckEditorElement.setAttribute("id", id);
             //const ckEditor = ckEditorElement.ckeditorInstance; //just to let you know
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
+            // this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditor5Adapter({ editorId: id }), attr);
           } else if (field.xtype == StatefulTextField.xtype) {
             const fieldId: string = field.getInputId();
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);

@@ -23,7 +23,7 @@ class AcrolinxAdapterCustomizer {
    */
   static #customizeAcrolinxAdapters(): void {
     AcrolinxAdapterCustomizer.#overrideInputAdapter();
-    AcrolinxAdapterCustomizer.#overrideCKEditorAdapter();
+    // AcrolinxAdapterCustomizer.#overrideCKEditorAdapter();
   }
 
   static #overrideInputAdapter(): void {

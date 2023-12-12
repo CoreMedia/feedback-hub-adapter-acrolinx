@@ -1,11 +1,12 @@
 {
-  "$schema": "https://releases.coremedia.com/plugins/plugin-schema-2.0.0.json",
+  "$schema": "https://releases.coremedia.com/plugins/plugin-schema-3.0.0.json",
   "plugins": {
     "studio-server": {
       "file": "studio-server/target/studio-server.feedback-hub-adapter-acrolinx-${VERSION}.zip"
     },
     "studio-client.main": {
       "file": "studio-client/apps/main/feedback-hub-adapter-acrolinx/build/studio-client.main.feedback-hub-adapter-acrolinx-${VERSION}.zip"
-    }
-  }
+    },
+  },
+  "minimum-cms-version": "2210.1"
 }

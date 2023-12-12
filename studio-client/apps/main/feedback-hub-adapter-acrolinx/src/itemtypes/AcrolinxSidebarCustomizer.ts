@@ -1,4 +1,3 @@
-import trace from "@jangaroo/runtime/trace";
 
 class AcrolinxSidebarCustomizer {
   static readonly #DELAY: number = 200;
@@ -14,7 +13,7 @@ class AcrolinxSidebarCustomizer {
 
   static #styleAcrolinxIFrame(iframe: any, timeout: number): void {
     if (timeout < 0) {
-      trace("[WARN]", "Failed to apply custom styling for Acrolinx sidebar.");
+      console.log("[WARN]", "Failed to apply custom styling for Acrolinx sidebar.");
       return;
     }
 
