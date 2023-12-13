@@ -131,12 +131,7 @@ jobs:
             FILE=$(eval echo ${FILE_TEMPLATE})
             REL_FILE=$(echo "${FILE}" | sed 's#.*/##g')
             cp "${FILE}" target/bundle
-            if [ "${CREATE_RELEASE}" = true ]; then
-              URL=$(eval echo ${URL_PATTERN})
-              RESULT="$(echo ${RESULT} | jq -r --arg APP "${APP}" --arg URL "${URL}" '.plugins[$APP] = {"url": $URL}')"
-            else
-              RESULT="$(echo ${RESULT} | jq -r --arg APP "${APP}" --arg REL_FILE "${REL_FILE}" '.plugins[$APP] = {"file": $REL_FILE}')"
-            fi
+            RESULT="$(echo ${RESULT} | jq -r --arg APP "${APP}" --arg REL_FILE "${REL_FILE}" '.plugins[$APP] = {"file": $REL_FILE}')"
           done
           echo "${RESULT}" > "target/bundle/$(echo ${DESCRIPTOR_TEMPLATE} | sed 's#.*/##g' | cut -d '.' -f1)-${VERSION}.json"
 
