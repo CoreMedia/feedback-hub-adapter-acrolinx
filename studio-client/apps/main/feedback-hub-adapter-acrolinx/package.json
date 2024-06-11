@@ -5,22 +5,22 @@
   "version": "2.0.4-SNAPSHOT",
   "private": true,
   "dependencies": {
-    "@coremedia/studio-client.cap-base-models": "2207.1.0",
-    "@coremedia/studio-client.cap-rest-client": "2207.1.0",
-    "@coremedia/studio-client.client-core": "2207.1.0",
-    "@coremedia/studio-client.core-icons": "2207.1.0",
-    "@coremedia/studio-client.ext.ui-components": "2207.1.0",
-    "@coremedia/studio-client.main.editor-components": "2207.1.0",
-    "@coremedia/studio-client.main.feedback-hub-editor-components": "2207.1.0",
-    "@jangaroo/ext-ts": "^1.0.3",
-    "@jangaroo/runtime": "^1.0.3"
+    "@coremedia/studio-client.cap-base-models": "2401.3.0",
+    "@coremedia/studio-client.cap-rest-client": "2401.3.0",
+    "@coremedia/studio-client.client-core": "2401.3.0",
+    "@coremedia/studio-client.core-icons": "2401.3.0",
+    "@coremedia/studio-client.ext.ui-components": "2401.3.0",
+    "@coremedia/studio-client.main.editor-components": "2401.3.0",
+    "@coremedia/studio-client.main.feedback-hub-editor-components": "2401.3.0",
+    "@jangaroo/ext-ts": "^1.1.0",
+    "@jangaroo/runtime": "^2.0.4"
   },
   "devDependencies": {
-    "@jangaroo/build": "^1.1.3",
-    "@jangaroo/core": "^1.1.3",
-    "@jangaroo/publish": "^1.1.3",
-    "@jangaroo/run": "^1.1.3",
-    "eslint": "7.27.0",
+    "@jangaroo/build": "^2.0.4",
+    "@jangaroo/core": "^2.0.4",
+    "@jangaroo/publish": "^2.0.4",
+    "@jangaroo/run": "^2.0.4",
+    "eslint": "8.56.0",
     "rimraf": "^3.0.2"
   },
   "scripts": {
