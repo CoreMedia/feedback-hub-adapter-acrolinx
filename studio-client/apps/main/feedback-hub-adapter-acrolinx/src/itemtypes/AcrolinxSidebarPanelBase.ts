@@ -15,6 +15,7 @@ import Config from "@jangaroo/runtime/Config";
 import AcrolinxAdapterCustomizer from "../AcrolinxAdapterCustomizer";
 import AcrolinxSidebarCustomizer from "./AcrolinxSidebarCustomizer";
 import AcrolinxSidebarPanel from "./AcrolinxSidebarPanel";
+import ResizableTextArea from "@coremedia/studio-client.ext.ui-components/components/ResizableTextArea";
 
 interface AcrolinxSidebarPanelBaseConfig extends Config<FeedbackItemPanel> {
 }
@@ -56,10 +57,10 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   #adaptHeight(parent: Window): void {
     const height = parseInt(""+asConfig(parent).height);
     const width = parseInt(""+asConfig(parent).width);
-    this.setHeight(height- 160);
+    this.setHeight(height- 260);
     const target = this.#getTargetElement();
     if (target) {
-      target.setAttribute("style", "height:" + (height - 166) + "px;width:" + (width - 24) + "px;background-color:#FFF;");
+      target.setAttribute("style", "height:" + (height - 266) + "px;width:" + (width - 24) + "px;background-color:#FFF;");
     }
   }
 
@@ -191,6 +192,9 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
           } else if (field.xtype == StatefulTextField.xtype) {
             const fieldId: string = field.getInputId();
             this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
+          } else if (field.xtype == ResizableTextArea.xtype) {
+            const fieldId: string = field.getInputId();
+            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: fieldId }), attr);
           } else {
             console.log("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
           }

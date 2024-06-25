@@ -13,7 +13,6 @@ class AcrolinxSidebarPanel extends AcrolinxSidebarPanelBase {
 
   constructor(config: Config<AcrolinxSidebarPanel> = null) {
     super(ConfigUtils.apply(Config(AcrolinxSidebarPanel, {
-      padding: "0 0 0 0",
       minHeight: 300,
 
       items: [
