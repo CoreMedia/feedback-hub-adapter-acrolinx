@@ -2,7 +2,7 @@
   "name": "@coremedia-labs/studio-client.main.feedback-hub-adapter-acrolinx",
   "author": "CoreMedia GmbH",
   "license": "CoreMedia Open Source License",
-  "version": "2.0.5",
+  "version": "2.0.6-SNAPSHOT",
   "private": true,
   "dependencies": {
     "@coremedia/studio-client.cap-base-models": "2401.3.0",
