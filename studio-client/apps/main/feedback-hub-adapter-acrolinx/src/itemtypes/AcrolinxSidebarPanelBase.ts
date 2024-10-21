@@ -2,6 +2,7 @@ import LocaleUtil from "@coremedia/studio-client.cap-base-models/locale/LocaleUt
 import session from "@coremedia/studio-client.cap-rest-client/common/session";
 import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
 import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
+import ResizableTextArea from "@coremedia/studio-client.ext.ui-components/components/ResizableTextArea";
 import StatefulTextField from "@coremedia/studio-client.ext.ui-components/components/StatefulTextField";
 import editorContext from "@coremedia/studio-client.main.editor-components/sdk/editorContext";
 import IPropertyFieldRegistry from "@coremedia/studio-client.main.editor-components/sdk/premular/IPropertyFieldRegistry";
@@ -15,7 +16,6 @@ import Config from "@jangaroo/runtime/Config";
 import AcrolinxAdapterCustomizer from "../AcrolinxAdapterCustomizer";
 import AcrolinxSidebarCustomizer from "./AcrolinxSidebarCustomizer";
 import AcrolinxSidebarPanel from "./AcrolinxSidebarPanel";
-import ResizableTextArea from "@coremedia/studio-client.ext.ui-components/components/ResizableTextArea";
 
 interface AcrolinxSidebarPanelBaseConfig extends Config<FeedbackItemPanel> {
 }
@@ -55,9 +55,9 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
    * @param parent the Feedback Window
    */
   #adaptHeight(parent: Window): void {
-    const height = parseInt(""+asConfig(parent).height);
-    const width = parseInt(""+asConfig(parent).width);
-    this.setHeight(height- 260);
+    const height = parseInt("" + asConfig(parent).height);
+    const width = parseInt("" + asConfig(parent).width);
+    this.setHeight(height - 260);
     const target = this.#getTargetElement();
     if (target) {
       target.setAttribute("style", "height:" + (height - 266) + "px;width:" + (width - 24) + "px;background-color:#FFF;");
@@ -175,35 +175,55 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
         const fieldName = descriptor.name;
         const visibleName = PropertyEditorUtil.getLocalizedString(content.getType().getName(), fieldName, "text", fieldName);
 
-        const attr: Record<string, any> = {
-          attributes: {
-            "class": fieldName,
-            "data-visibleName": visibleName,
-          },
-        };
-
-        if (field && field.xtype && field.rendered) {
-          if (field.xtype === "com.coremedia.cms.editor.sdk.config.ckeditor5.richTextArea") {
-            //we want the actual editable div here which has no id yet!
-            const ckEditorElement: any = field.el.dom.querySelector(".ck-editor__editable");
-            const id = "cke_" + field.getId();
-            // this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditor5Adapter({ editorId: id }), attr);
-          } else if (field.xtype == StatefulTextField.xtype) {
-            const fieldId: string = field.getInputId();
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
-          } else if (field.xtype == ResizableTextArea.xtype) {
-            const fieldId: string = field.getInputId();
-            this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: fieldId }), attr);
-          } else {
-            console.log("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
+        if (field && field.xtype) {
+          if (!field.rendered) {
+            console.log("[INFO]", "Added afterrender listener for Acrolinx field " + field.xtype + " of property " + propertyName);
+            field.addListener("afterrender", bind(this, this.#addFieldAdapter));
+            continue;
           }
+
+          this.#registerField(field, propertyName);
         }
       }
     }
 
     // Register multiAdapter to the main Acrolinx plugin
     acrolinxPlugin.registerAdapter(this.#multiAdapter);
+  }
+
+  #registerField(field: any, propertyName: string): void {
+    const content: Content = this.contentExpression.getValue();
+    const registry = AcrolinxSidebarPanelBase.#getFieldRegistry();
+
+    const descriptor = content.getType().getDescriptor(propertyName);
+    if (descriptor) {
+      const fieldName = content.getType().getDescriptor(propertyName).name;
+      const visibleName = PropertyEditorUtil.getLocalizedString(content.getType().getName(), fieldName, "text", fieldName);
+
+      const attr: Record<string, any> = {
+        attributes: {
+          "class": fieldName,
+          "data-visibleName": visibleName,
+        },
+      };
+
+      if (field.xtype === "com.coremedia.cms.editor.sdk.config.ckeditor5.richTextArea") {
+        //we want the actual editable div here which has no id yet!
+        const ckEditorElement: any = field.el.dom.querySelector(".ck-editor__editable");
+        const id = "cke_" + field.getId();
+        // this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.ContentEditableAdapter({ editorId: id }), attr);
+        this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.CKEditor5Adapter({ editorId: id }), attr);
+      } else if (field.xtype == StatefulTextField.xtype) {
+        const fieldId: string = field.getInputId();
+        this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
+      } else if (field.xtype == ResizableTextArea.xtype) {
+        const fieldId: string = field.getInputId();
+        field.selectOnFocus = false;
+        this.#multiAdapter.addSingleAdapter(new window["acrolinx"].plugins.adapter.InputAdapter({ editorId: fieldId }), attr);
+      } else {
+        console.log("[INFO]", "Acrolinx integration found no suitable editor for property \"" + propertyName + "\"");
+      }
+    }
   }
 
   /**
@@ -222,6 +242,19 @@ class AcrolinxSidebarPanelBase extends FeedbackItemPanel {
   #getDocumentRef(): string {
     const content: Content = this.contentExpression.getValue();
     return remoteControlHandlerRegistry.createRemoteControlUrl(content);
+  }
+
+  #addFieldAdapter(field: any): void {
+    field.removeListener("afterrender", bind(this, this.#addFieldAdapter));
+    const plugins: Plugin[] = field.getPlugins ? field.getPlugins() : [];
+    if (plugins) {
+      for (const plugin of plugins) {
+        if (plugin["propertyName"]) {
+          this.#registerField(field, plugin["propertyName"]);
+          return;
+        }
+      }
+    }
   }
 
   protected override onDestroy(): void {
