@@ -6,7 +6,7 @@
 
   <groupId>com.coremedia.labs.plugins</groupId>
   <artifactId>feedback-hub-adapter-acrolinx</artifactId>
-  <version>2.0.7</version>
+  <version>2.0.8-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Acrolinx Plugin</description>
 
